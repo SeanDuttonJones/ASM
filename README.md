@@ -1,2 +1,2 @@
-# asm
-An Abstract Stack Machine
+# ASM
+An Abstract Stack Machine (ASM)
