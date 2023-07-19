@@ -3,18 +3,21 @@
 
 #include <any>
 #include "AsmOpcodes.hpp"
-
-using namespace std;
+#include "Type.hpp"
 
 class ASMOperation {
     private:
         Opcode opcode;
         any value;
+        Type type;
+
     public:
         ASMOperation(Opcode opcode);
         ASMOperation(Opcode opcode, any value);
+        
         Opcode getOpcode();
         any getValue();
+        Type getType();
 };
 
 #endif

@@ -5,7 +5,6 @@
 #include <vector>
 #include <variant>
 #include "AsmOperation.hpp"
-#include "Value.hpp"
 
 using namespace std;
 
@@ -13,7 +12,7 @@ class Asm {
     private:
         vector<ASMOperation> operations;
         vector<uint8_t> memory;
-        vector<Value<variant<bool, char, int, float>>> stack;
+        // vector<Value<variant<bool, char, int, float>>> stack;
         int64_t pc;
 
     public:
