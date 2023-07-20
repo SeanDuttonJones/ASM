@@ -2,22 +2,24 @@
 #define ASM_OPERATION_H
 
 #include <any>
-#include "AsmOpcodes.hpp"
+#include <typeindex>
 #include "Type.hpp"
+#include "Opcode.hpp"
 
 class ASMOperation {
     private:
         Opcode opcode;
-        any value;
+        std::any value;
         Type type;
 
     public:
         ASMOperation(Opcode opcode);
-        ASMOperation(Opcode opcode, any value);
+        ASMOperation(Opcode opcode, std::any value);
         
         Opcode getOpcode();
-        any getValue();
+        std::any getValue();
         Type getType();
+        std::string toString();
 };
 
 #endif

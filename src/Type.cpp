@@ -27,7 +27,7 @@ Type TypeTools::getType(std::type_index index) {
     return Type::NONE;
 };
 
-std::string TypeTools::getTypeName(Type type) {
+std::string TypeTools::toString(Type type) {
     std::map<Type, std::string>::iterator it = typeStringMap.find(type);
     if(it != typeStringMap.end()) {
         return it->second;

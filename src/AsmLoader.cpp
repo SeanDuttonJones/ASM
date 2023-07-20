@@ -15,11 +15,7 @@ void AsmLoader::load(fs::path asmFile) {
         string line;
         while(getline(source, line)) {
             ASMOperation operation = parseLine(line);
-            string sOpcode = "";
-            if(operation.getOpcode() == Opcode::PushI) {
-                sOpcode = "PushI";
-            }
-            cout << "OPCODE: " << sOpcode << " VALUE: " << operation.getValue().type().name() << endl;
+            cout << operation.toString() << endl;
         }
     }
 }
@@ -31,7 +27,7 @@ ASMOperation AsmLoader::parseLine(string line) {
         return operation;
     }
 
-    Opcode op = AsmOpcode::getOpcode(v.at(0));
+    Opcode op = OpcodeTools::getOpcode(v.at(0));
    
     if(v.size() == 1) {
         ASMOperation operation(op);

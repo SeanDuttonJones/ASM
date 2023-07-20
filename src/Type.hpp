@@ -20,7 +20,7 @@ class TypeTools {
     
     public:
         static Type getType(std::type_index);
-        static std::string getTypeName(Type);
+        static std::string toString(Type);
 
 };
 

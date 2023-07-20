@@ -7,6 +7,7 @@
 #include <vector>
 #include "Asm.hpp"
 #include "AsmOperation.hpp"
+#include "Opcode.hpp"
 
 using namespace std;
 namespace fs = std::filesystem;
