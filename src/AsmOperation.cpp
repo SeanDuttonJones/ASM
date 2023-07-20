@@ -42,11 +42,12 @@ std::string ASMOperation::toString() {
         valueStr = std::to_string(std::any_cast<float>(value));
         break;
     case Type::STRING:
-        valueStr = std::any_cast<char*>(value);
+        valueStr = std::any_cast<std::string>(value);
         break;
     default:
+        valueStr = "None";
         break;
     }
 
-    return "Opcode: " + opcodeStr + " | Value: " + valueStr;
+    return "Opcode: " + opcodeStr + " | Value: " + valueStr + " | Type: " + TypeTools::toString(type);
 }

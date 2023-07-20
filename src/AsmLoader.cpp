@@ -1,6 +1,7 @@
 #include "AsmLoader.hpp"
 #include <fstream>
 #include <string>
+#include <cmath>
 
 AsmLoader::AsmLoader(Asm stackMachine) {
     stackMachine = stackMachine;
@@ -27,14 +28,14 @@ ASMOperation AsmLoader::parseLine(string line) {
         return operation;
     }
 
-    Opcode op = OpcodeTools::getOpcode(v.at(0));
+    Opcode op = OpcodeTools::getOpcode(v[0]);
    
     if(v.size() == 1) {
         ASMOperation operation(op);
         return operation;
     }
 
-    any value = stoi(v.at(1));
+    any value = parseValue(v[1]);
     ASMOperation operation(op, value);
     return operation;
 }
@@ -48,4 +49,25 @@ vector<string> AsmLoader::tokenize(string line) {
     }
 
     return v;
+}
+
+any AsmLoader::parseValue(string value) {
+    try {
+        size_t pos = 0;
+        int iValue = std::stoi(value, &pos);
+        
+        if(pos < value.size() && value[pos] == '.') {
+            float fValue = std::stof(value, &pos);
+            
+            if(pos < value.size()) {
+                return value;
+            }
+
+            return fValue;
+        }
+
+        return iValue;
+    } catch(int e) {}
+
+    return value;
 }

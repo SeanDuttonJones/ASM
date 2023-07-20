@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <filesystem>
+#include <any>
 #include <map>
 #include <vector>
 #include "Asm.hpp"
@@ -21,6 +22,7 @@ class AsmLoader {
 
         ASMOperation parseLine(string line);
         vector<string> tokenize(string line);
+        any parseValue(string value);
     public:
         AsmLoader(Asm stackMachine);
         void load(fs::path asmFile);

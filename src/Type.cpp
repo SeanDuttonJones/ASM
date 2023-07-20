@@ -4,7 +4,7 @@ std::map<std::type_index, Type> TypeTools::typeMap = {
     {std::type_index(typeid(bool)), Type::BOOLEAN},
     {std::type_index(typeid(char)), Type::CHARACTER},
     {std::type_index(typeid(int)), Type::INTEGER},
-    {std::type_index(typeid(char*)), Type::STRING},
+    {std::type_index(typeid(std::string)), Type::STRING},
     {std::type_index(typeid(float)), Type::FLOAT},
     {std::type_index(typeid(void)), Type::NONE}
 };

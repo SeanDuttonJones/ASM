@@ -1,6 +1,7 @@
 #ifndef ASM_OPERATION_H
 #define ASM_OPERATION_H
 
+#include <iostream>
 #include <any>
 #include <typeindex>
 #include "Type.hpp"
