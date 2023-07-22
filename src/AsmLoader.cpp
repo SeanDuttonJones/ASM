@@ -9,15 +9,35 @@ AsmLoader::AsmLoader(Asm stackMachine) {
     this->dptr = 0;
 } 
 
-void AsmLoader::load(fs::path asmFile) {
+vector<string> AsmLoader::readFile(fs::path asmFile) {
+    vector<string> lines;
+    
     ifstream source;
     source.open(asmFile);
     if(source.is_open()) {
         string line;
         while(getline(source, line)) {
-            ASMOperation operation = parseLine(line);
-            cout << operation.toString() << endl;
+            lines.push_back(line);
         }
+    }
+
+    return lines;
+}
+void AsmLoader::load(fs::path asmFile) {
+    vector<string> lines = readFile(asmFile);
+    
+    string line;
+    for(int i = 0; i < lines.size(); i++) {
+        line = lines[i];
+
+        ASMOperation operation = parseLine(line);
+        stackMachine.insertOperation(operation, iptr);
+        iptr++;
+        if(operation.getOpcode() == Opcode::DLabel) {
+            symbolTable.insert(std::any_cast<std::string>(operation.getValue()), dptr);
+            cout << "ST: " << symbolTable.toString() << endl;
+        }
+        cout << operation.toString() << endl;
     }
 }
 

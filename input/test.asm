@@ -1,3 +1,3 @@
 PushI   4.
-PushI   "label-test"
+DLabel   "label-test"
 PushI   3

@@ -7,6 +7,7 @@
 #include <map>
 #include <vector>
 #include "Asm.hpp"
+#include "SymbolTable.hpp"
 #include "AsmOperation.hpp"
 #include "Opcode.hpp"
 
@@ -16,10 +17,11 @@ namespace fs = std::filesystem;
 class AsmLoader {
     private:
         Asm stackMachine;
+        SymbolTable symbolTable;
         int64_t iptr;
         int64_t dptr;
-        map<string, int64_t> symbolTabel;
 
+        vector<string> readFile(fs::path asmFile);
         ASMOperation parseLine(string line);
         vector<string> tokenize(string line);
         any parseValue(string value);
