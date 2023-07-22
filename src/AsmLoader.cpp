@@ -6,8 +6,8 @@
 AsmLoader::AsmLoader(Asm stackMachine) {
     stackMachine = stackMachine;
     iptr = 0;
-    dptr = 0;
-}
+    dptr = 0; 
+} 
 
 void AsmLoader::load(fs::path asmFile) {
     ifstream source;
@@ -41,11 +41,24 @@ ASMOperation AsmLoader::parseLine(string line) {
 }
 
 vector<string> AsmLoader::tokenize(string line) {
-    stringstream ss(line);
     vector<string> v;
+    string acc = "";
+    bool onToken = false;
+    for(int i = 0; i <= line.size(); i++) {
+        if(std::isspace(line[i]) || line[i] == '\0') {
+            if(acc.size() > 0) {
+                v.push_back(acc);
+            }
 
-    while(getline(ss, line, ' ')) {
-        v.push_back(line);
+            if(line[i] == '\0') {
+                break;
+            }
+
+            acc = "";
+            continue;
+        }
+
+        acc += line[i];
     }
 
     return v;
