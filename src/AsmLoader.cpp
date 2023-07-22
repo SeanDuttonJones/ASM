@@ -4,9 +4,9 @@
 #include <cmath>
 
 AsmLoader::AsmLoader(Asm stackMachine) {
-    stackMachine = stackMachine;
-    iptr = 0;
-    dptr = 0; 
+    this->stackMachine = stackMachine;
+    this->iptr = 0;
+    this->dptr = 0;
 } 
 
 void AsmLoader::load(fs::path asmFile) {
@@ -42,15 +42,17 @@ ASMOperation AsmLoader::parseLine(string line) {
 
 vector<string> AsmLoader::tokenize(string line) {
     vector<string> v;
+    
     string acc = "";
-    bool onToken = false;
+    char currentChar = line[0];
     for(int i = 0; i <= line.size(); i++) {
-        if(std::isspace(line[i]) || line[i] == '\0') {
+        currentChar = line[i];
+        if(std::isspace(currentChar) || currentChar == '\0') {
             if(acc.size() > 0) {
                 v.push_back(acc);
             }
 
-            if(line[i] == '\0') {
+            if(currentChar == '\0') {
                 break;
             }
 
@@ -58,7 +60,7 @@ vector<string> AsmLoader::tokenize(string line) {
             continue;
         }
 
-        acc += line[i];
+        acc += currentChar;
     }
 
     return v;
@@ -80,7 +82,9 @@ any AsmLoader::parseValue(string value) {
         }
 
         return iValue;
-    } catch(int e) {}
-
-    return value;
+    } catch(const std::invalid_argument& ex) {
+        return value;
+    } catch(const std::out_of_range& ex) {
+        return value;
+    }
 }
