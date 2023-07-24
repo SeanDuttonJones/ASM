@@ -23,6 +23,7 @@ vector<string> AsmLoader::readFile(fs::path asmFile) {
 
     return lines;
 }
+
 void AsmLoader::load(fs::path asmFile) {
     vector<string> lines = readFile(asmFile);
     
