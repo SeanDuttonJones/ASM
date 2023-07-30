@@ -14,15 +14,15 @@ enum class OperationType {
 
 class Operation {
     private:
-        Asm stackMachine;
+        Asm *stackMachine;
         OperationType operationType;
         Opcode opcode;
         any value;
         Type valueType;
 
     public:
-        Operation(Asm stackMachine, OperationType operationType, Opcode opcode);
-        Operation(Asm stackMachine, OperationType operationType, Opcode opcode, any value);
+        Operation(Asm *stackMachine, OperationType operationType, Opcode opcode);
+        Operation(Asm *stackMachine, OperationType operationType, Opcode opcode, any value);
         virtual ~Operation();
         virtual void execute();
         virtual OperationType getOperationType();
