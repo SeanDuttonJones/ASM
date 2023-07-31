@@ -1,19 +1,20 @@
-#include "AsmLoader.hpp"
-#include <fstream>
-#include <string>
-#include <cmath>
+#include "loader.hpp"
 
-AsmLoader::AsmLoader(Asm stackMachine) {
-    this->stackMachine = stackMachine;
+#include <fstream>
+#include "operation_factory.hpp"
+
+Loader::Loader(Asm &stackMachine)
+    : stackMachine(stackMachine)
+{
     this->iptr = 0;
     this->dptr = 0;
-} 
+}
 
-vector<string> AsmLoader::readFile(fs::path asmFile) {
+vector<string> Loader::readFile(std::filesystem::path input) {
     vector<string> lines;
     
     ifstream source;
-    source.open(asmFile);
+    source.open(input);
     if(source.is_open()) {
         string line;
         while(getline(source, line)) {
@@ -24,44 +25,38 @@ vector<string> AsmLoader::readFile(fs::path asmFile) {
     return lines;
 }
 
-void AsmLoader::load(fs::path asmFile) {
-    vector<string> lines = readFile(asmFile);
-    
+void Loader::load(std::filesystem::path input) {
+    vector<string> lines = readFile(input);
+
     string line;
     for(int i = 0; i < lines.size(); i++) {
         line = lines[i];
 
-        ASMOperation operation = parseLine(line);
-        //stackMachine.insertOperation(operation, iptr);
+        Operation operation = parseOperation(line);
+        stackMachine.insertOperation(operation, iptr);
         iptr++;
-        if(operation.getOpcode() == Opcode::DLabel) {
-            symbolTable.insert(std::any_cast<std::string>(operation.getValue()), dptr);
-            cout << "ST: " << symbolTable.toString() << endl;
-        }
-        cout << operation.toString() << endl;
+        // FINISH Implementation
     }
 }
 
-ASMOperation AsmLoader::parseLine(string line) {
-    vector<string> v = tokenize(line);
-    if(v.size() > 2) {
-        ASMOperation operation(Opcode::Error);
-        return operation;
+Operation Loader::parseOperation(string line) {
+    vector<string> tokens = tokenize(line);
+    if(tokens.size() == 0 || tokens.size() > 2) {
+        cerr << "Invalid operation" << endl;
+        exit(1);
     }
 
-    Opcode op = OpcodeTools::getOpcode(v[0]);
-   
-    if(v.size() == 1) {
-        ASMOperation operation(op);
-        return operation;
+    Opcode opcode = OpcodeTools::getOpcode(tokens[0]);
+    any value = 0;
+    if(tokens.size() == 2) {
+        any value = parseValue(tokens[1]);
     }
 
-    any value = parseValue(v[1]);
-    ASMOperation operation(op, value);
+    Operation operation = OperationFactory::make(stackMachine, opcode, value);
     return operation;
 }
 
-vector<string> AsmLoader::tokenize(string line) {
+vector<string> Loader::tokenize(string line) {
     vector<string> v;
     
     string acc = "";
@@ -87,7 +82,7 @@ vector<string> AsmLoader::tokenize(string line) {
     return v;
 }
 
-any AsmLoader::parseValue(string value) {
+any Loader::parseValue(string value) {
     try {
         size_t pos = 0;
         int iValue = std::stoi(value, &pos);

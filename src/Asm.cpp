@@ -6,7 +6,7 @@ void Asm::run() {
 
 }
 
-void Asm::insertOperation(ASMOperation operation, int64_t location) {
+void Asm::insertOperation(Operation operation, int64_t location) {
 
 }
 

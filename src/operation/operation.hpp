@@ -13,7 +13,7 @@ enum class OperationType {
 };
 
 class Operation {
-    private:
+    protected:
         Asm &stackMachine;
         OperationType operationType;
         Opcode opcode;
