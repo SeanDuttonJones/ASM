@@ -36,7 +36,8 @@ void Loader::load(std::filesystem::path input) {
         stackMachine.insertOperation(operation, iptr);
         
         iptr++;
-        
+
+        // Not calling derived class because of code slicing. Must fix with references.
         operation.install();
 
         std::cout << operation.toString() << std::endl;
@@ -53,7 +54,7 @@ Operation Loader::parseOperation(string line) {
     Opcode opcode = OpcodeTools::getOpcode(tokens[0]);
     any value = 0;
     if(tokens.size() == 2) {
-        any value = parseValue(tokens[1]);
+        value = parseValue(tokens[1]);
     }
 
     Operation operation = OperationFactory::make(stackMachine, opcode, value);

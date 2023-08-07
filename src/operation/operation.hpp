@@ -7,6 +7,10 @@
 #include "Opcode.hpp"
 #include "Type.hpp"
 
+// forward declaration since we have a circular dependency with Asm.hpp
+// TODO: fix circular dependency
+class Asm;
+
 enum class OperationType {
     INSTRUCTION,
     DIRECTIVE
@@ -17,12 +21,12 @@ class Operation {
         Asm &stackMachine;
         OperationType operationType;
         Opcode opcode;
-        any value;
+        std::any value;
         Type valueType;
 
     public:
         Operation(Asm &stackMachine, OperationType operationType, Opcode opcode);
-        Operation(Asm &stackMachine, OperationType operationType, Opcode opcode, any value);
+        Operation(Asm &stackMachine, OperationType operationType, Opcode opcode, std::any value);
         virtual ~Operation();
         virtual void install();
         virtual void execute();

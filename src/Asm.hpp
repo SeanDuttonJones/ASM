@@ -8,11 +8,14 @@
 
 using namespace std;
 
+// forward declaration since we have a circular dependency with operation.hpp
+// TODO: fix circular dependency
+class Operation;
+
 class Asm {
     private:
         vector<Operation> operations;
         vector<uint8_t> memory;
-        // vector<Value<variant<bool, char, int, float>>> stack;
         int64_t pc;
 
     public:
