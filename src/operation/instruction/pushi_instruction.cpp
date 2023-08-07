@@ -8,7 +8,11 @@ class PushIInstruction: public Operation {
             : Operation(stackMachine, OperationType::INSTRUCTION, Opcode::PushI, value)
         {}
 
+        void install() {
+            std::cout << "PushI: installing" << std::endl;
+        }
+
         void execute() {
-            std::cout << "PushI executing" << std::endl;
+            std::cout << "PushI: executing" << std::endl;
         }
 };

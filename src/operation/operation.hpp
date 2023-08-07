@@ -24,6 +24,7 @@ class Operation {
         Operation(Asm &stackMachine, OperationType operationType, Opcode opcode);
         Operation(Asm &stackMachine, OperationType operationType, Opcode opcode, any value);
         virtual ~Operation();
+        virtual void install();
         virtual void execute();
         virtual OperationType getOperationType();
         virtual Opcode getOpcode();

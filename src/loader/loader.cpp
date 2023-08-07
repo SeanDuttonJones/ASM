@@ -34,8 +34,12 @@ void Loader::load(std::filesystem::path input) {
 
         Operation operation = parseOperation(line);
         stackMachine.insertOperation(operation, iptr);
+        
         iptr++;
-        // FINISH Implementation
+        
+        operation.install();
+
+        std::cout << operation.toString() << std::endl;
     }
 }
 

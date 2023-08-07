@@ -20,6 +20,8 @@ Operation::Operation(Asm &stackMachine, OperationType operationType, Opcode opco
 
 Operation::~Operation() {};
 
+void Operation::install() {};
+
 void Operation::execute() {};
 
 OperationType Operation::getOperationType() {
