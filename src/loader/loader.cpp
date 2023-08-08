@@ -61,6 +61,20 @@ Operation& Loader::parseOperation(string line) {
     return operation;
 }
 
+std::tuple<Opcode, any> Loader::parseLine(string line) {
+        vector<string> tokens = tokenize(line);
+    if(tokens.size() == 0 || tokens.size() > 2) {
+        cerr << "Invalid operation" << endl;
+        exit(1);
+    }
+
+    Opcode opcode = OpcodeTools::getOpcode(tokens[0]);
+    any value = 0;
+    if(tokens.size() == 2) {
+        value = parseValue(tokens[1]);
+    }
+}
+
 vector<string> Loader::tokenize(string line) {
     vector<string> v;
     
