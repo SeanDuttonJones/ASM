@@ -3,9 +3,9 @@
 #include <fstream>
 #include "operation_factory.hpp"
 
-Loader::Loader(Asm &stackMachine)
-    : stackMachine(stackMachine)
+Loader::Loader(Asm stackMachine)
 {
+    this->stackMachine = stackMachine;
     this->iptr = 0;
     this->dptr = 0;
 }
@@ -32,7 +32,7 @@ void Loader::load(std::filesystem::path input) {
     for(int i = 0; i < lines.size(); i++) {
         line = lines[i];
 
-        Operation operation = parseOperation(line);
+        Operation &operation = parseOperation(line);
         stackMachine.insertOperation(operation, iptr);
         
         iptr++;
@@ -44,7 +44,7 @@ void Loader::load(std::filesystem::path input) {
     }
 }
 
-Operation Loader::parseOperation(string line) {
+Operation& Loader::parseOperation(string line) {
     vector<string> tokens = tokenize(line);
     if(tokens.size() == 0 || tokens.size() > 2) {
         cerr << "Invalid operation" << endl;

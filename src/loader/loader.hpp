@@ -12,17 +12,18 @@ using namespace std;
 
 class Loader {
     private:
-        Asm &stackMachine;
+        Asm stackMachine;
         SymbolTable symbolTable;
         int64_t iptr;
         int64_t dptr;
 
         vector<string> readFile(std::filesystem::path input);
-        Operation parseOperation(string line);
+        Operation& parseOperation(string line);
+        std::tuple<Opcode, any> parseOperands(string line);
         vector<string> tokenize(string line);
         any parseValue(string value);
     public:
-        Loader(Asm &stackMachine);
+        Loader(Asm stackMachine);
         void load(std::filesystem::path input);
 };
 
