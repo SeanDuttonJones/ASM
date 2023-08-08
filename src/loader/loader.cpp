@@ -4,8 +4,8 @@
 #include "operation_factory.hpp"
 
 Loader::Loader(Asm stackMachine)
+    : stackMachine(stackMachine)
 {
-    this->stackMachine = stackMachine;
     this->iptr = 0;
     this->dptr = 0;
 }
@@ -32,7 +32,11 @@ void Loader::load(std::filesystem::path input) {
     for(int i = 0; i < lines.size(); i++) {
         line = lines[i];
 
-        Operation &operation = parseOperation(line);
+        auto [opcode, value] = parseLine(line);
+        // TODO: will need to return an operation from the heap. No other way to get around
+        // object slicing... Perhaps the operation should be created within a function.
+        // OperationFactory would be the place to allocate an Operation from the heap.
+        Operation operation = OperationFactory::make(stackMachine, opcode, value);
         stackMachine.insertOperation(operation, iptr);
         
         iptr++;
@@ -44,7 +48,7 @@ void Loader::load(std::filesystem::path input) {
     }
 }
 
-Operation& Loader::parseOperation(string line) {
+std::tuple<Opcode, any> Loader::parseLine(string line) {
     vector<string> tokens = tokenize(line);
     if(tokens.size() == 0 || tokens.size() > 2) {
         cerr << "Invalid operation" << endl;
@@ -57,22 +61,7 @@ Operation& Loader::parseOperation(string line) {
         value = parseValue(tokens[1]);
     }
 
-    Operation operation = OperationFactory::make(stackMachine, opcode, value);
-    return operation;
-}
-
-std::tuple<Opcode, any> Loader::parseLine(string line) {
-        vector<string> tokens = tokenize(line);
-    if(tokens.size() == 0 || tokens.size() > 2) {
-        cerr << "Invalid operation" << endl;
-        exit(1);
-    }
-
-    Opcode opcode = OpcodeTools::getOpcode(tokens[0]);
-    any value = 0;
-    if(tokens.size() == 2) {
-        value = parseValue(tokens[1]);
-    }
+    return {opcode, value};
 }
 
 vector<string> Loader::tokenize(string line) {

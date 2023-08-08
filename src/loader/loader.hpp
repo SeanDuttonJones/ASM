@@ -18,8 +18,8 @@ class Loader {
         int64_t dptr;
 
         vector<string> readFile(std::filesystem::path input);
-        Operation& parseOperation(string line);
-        std::tuple<Opcode, any> parseOperands(string line);
+        
+        std::tuple<Opcode, any> parseLine(string line);
         vector<string> tokenize(string line);
         any parseValue(string value);
     public:
