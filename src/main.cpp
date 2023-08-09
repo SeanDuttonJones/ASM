@@ -7,8 +7,10 @@ using namespace std;
 
 int main() {
     Asm stackMachine;
+    
     Loader loader(stackMachine);
     cout << "LOADING..." << endl;
     loader.load("./input/test.asm");
-    stackMachine.run();
+    
+    stackMachine.start();
 };

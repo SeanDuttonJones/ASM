@@ -21,7 +21,7 @@ class Asm {
     public:
         Asm();
         ~Asm();
-        void run();
+        void start();
         void insertOperation(Operation *operation, int64_t location);
         void insertData(vector<uint8_t> data, int64_t location);
         void reset();
