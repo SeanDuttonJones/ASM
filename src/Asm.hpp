@@ -14,14 +14,15 @@ class Operation;
 
 class Asm {
     private:
-        vector<Operation> operations;
+        vector<Operation*> operations;
         vector<uint8_t> memory;
         int64_t pc;
 
     public:
         Asm();
+        ~Asm();
         void run();
-        void insertOperation(Operation operation, int64_t location);
+        void insertOperation(Operation *operation, int64_t location);
         void insertData(vector<uint8_t> data, int64_t location);
         void reset();
 };

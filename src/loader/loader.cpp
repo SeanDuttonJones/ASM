@@ -32,23 +32,18 @@ void Loader::load(std::filesystem::path input) {
     for(int i = 0; i < lines.size(); i++) {
         line = lines[i];
 
-        auto [opcode, value] = parseLine(line);
-        // TODO: will need to return an operation from the heap. No other way to get around
-        // object slicing... Perhaps the operation should be created within a function.
-        // OperationFactory would be the place to allocate an Operation from the heap.
-        Operation operation = OperationFactory::make(stackMachine, opcode, value);
-        stackMachine.insertOperation(operation, iptr);
+        Operation *pOperation = parseLine(line);
+        stackMachine.insertOperation(pOperation, iptr);
         
         iptr++;
 
-        // Not calling derived class because of code slicing. Must fix with references.
-        operation.install();
+        pOperation->install();
 
-        std::cout << operation.toString() << std::endl;
+        std::cout << pOperation->toString() << std::endl;
     }
 }
 
-std::tuple<Opcode, any> Loader::parseLine(string line) {
+Operation* Loader::parseLine(string line) {
     vector<string> tokens = tokenize(line);
     if(tokens.size() == 0 || tokens.size() > 2) {
         cerr << "Invalid operation" << endl;
@@ -60,8 +55,8 @@ std::tuple<Opcode, any> Loader::parseLine(string line) {
     if(tokens.size() == 2) {
         value = parseValue(tokens[1]);
     }
-
-    return {opcode, value};
+    Operation *pOperation = OperationFactory::make(stackMachine, opcode, value);
+    return pOperation;
 }
 
 vector<string> Loader::tokenize(string line) {

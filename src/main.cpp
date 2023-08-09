@@ -10,4 +10,5 @@ int main() {
     Loader loader(stackMachine);
     cout << "LOADING..." << endl;
     loader.load("./input/test.asm");
+    stackMachine.run();
 };

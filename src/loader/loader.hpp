@@ -19,7 +19,7 @@ class Loader {
 
         vector<string> readFile(std::filesystem::path input);
         
-        std::tuple<Opcode, any> parseLine(string line);
+        Operation* parseLine(string line);
         vector<string> tokenize(string line);
         any parseValue(string value);
     public:
