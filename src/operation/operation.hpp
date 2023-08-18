@@ -13,6 +13,8 @@ class Asm;
 
 enum class OperationType {
     INSTRUCTION,
+    LABEL,
+    DLABEL,
     DIRECTIVE
 };
 

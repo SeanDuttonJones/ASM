@@ -13,13 +13,13 @@ void Asm::insertOperation(Operation *operation, int64_t location) {
     operations.insert(operations.begin() + location, operation);
 }
 
-void Asm::insertData(vector<uint8_t> data, int64_t location) {
-
+void Asm::insertData(array<unsigned char, MEMORY_SIZE> data, size_t size, int64_t location) {
+    
 }
 
 void Asm::reset() {
     operations.clear();
-    memory.clear();
+    memory.fill(0);
     pc = 0;
 }
 

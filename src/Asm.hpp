@@ -14,8 +14,9 @@ class Operation;
 
 class Asm {
     private:
+        static const size_t MEMORY_SIZE = 65536;
         vector<Operation*> operations;
-        vector<uint8_t> memory;
+        array<unsigned char, MEMORY_SIZE> memory;
         int64_t pc;
 
     public:
@@ -23,7 +24,7 @@ class Asm {
         ~Asm();
         void start();
         void insertOperation(Operation *operation, int64_t location);
-        void insertData(vector<uint8_t> data, int64_t location);
+        void insertData(array<unsigned char, MEMORY_SIZE> data, size_t size, int64_t location);
         void reset();
 };
 

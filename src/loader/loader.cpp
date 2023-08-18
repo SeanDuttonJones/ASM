@@ -1,6 +1,7 @@
 #include "loader.hpp"
 
 #include <fstream>
+#include <any>
 #include "operation_factory.hpp"
 
 Loader::Loader(Asm stackMachine)
@@ -33,13 +34,40 @@ void Loader::load(std::filesystem::path input) {
         line = lines[i];
 
         Operation *pOperation = parseLine(line);
-        stackMachine.insertOperation(pOperation, iptr);
         
-        iptr++;
+        OperationType operationType = pOperation->getOperationType();
+        if(operationType == OperationType::INSTRUCTION) {
+            cout << "INSTRUCTION" << endl;
+            stackMachine.insertOperation(pOperation, iptr);
+            iptr++;
+            pOperation->install();
 
-        pOperation->install();
+        } else if(operationType == OperationType::LABEL) {
+            cout << "LABEL" << endl;
+            if(pOperation->getValueType() != Type::STRING) {
+                cerr << "Invalid value for OperationType Label" << endl;
+                return;
+            }
 
-        std::cout << pOperation->toString() << std::endl;
+            string label = any_cast<string>(pOperation->getValue());
+            symbolTable.insert(label, iptr);
+
+        } else if(operationType == OperationType::DLABEL) {
+            cout << "DLABEL" << endl;
+            if(pOperation->getValueType() != Type::STRING) {
+                cerr << "Invalid value for OperationType DLabel" << endl;
+                return;
+            }
+
+            string label = any_cast<string>(pOperation->getValue());
+            symbolTable.insert(label, dptr);
+
+        } else if(operationType == OperationType::DIRECTIVE) {
+            cout << "DIRECTIVE" << endl;
+            
+        }
+
+        cout << pOperation->toString() << endl;
     }
 }
 
