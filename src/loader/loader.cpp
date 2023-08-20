@@ -44,7 +44,7 @@ void Loader::load(std::filesystem::path input) {
 
         } else if(operationType == OperationType::DLABEL) {
             loadDLabel(pOperation);
-            
+
         } else if(operationType == OperationType::DIRECTIVE) {
             loadDirective(pOperation);
         }
@@ -84,6 +84,24 @@ void Loader::loadDLabel(Operation *pOperation) {
 
 void Loader::loadDirective(Operation *pOperation) {
     cout << "DIRECTIVE" << endl;
+    if(pOperation->getValueType() == Type::CHARACTER) {
+        char data = any_cast<char>(pOperation->getValue());
+        stackMachine.insertDataChar(data, dptr);
+        dptr += 1;
+
+    } else if(pOperation->getValueType() == Type::INTEGER) {
+        int data = any_cast<int>(pOperation->getValue());
+        stackMachine.insertDataInt(data, dptr);
+        dptr += 4;
+
+    } else if(pOperation->getValueType() == Type::FLOAT) {
+        double data = any_cast<double>(pOperation->getValue());
+        stackMachine.insertDataFloat(data, dptr);
+        dptr += 8;
+
+    } else {
+        cerr << "Invalid data type for OperationType Directive" << endl;
+    }
 }
 
 Operation* Loader::parseLine(string line) {

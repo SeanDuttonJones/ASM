@@ -14,15 +14,24 @@ void Asm::insertOperation(Operation *operation, int64_t location) {
 }
 
 void Asm::insertDataFloat(double data, size_t location) {
-    
+    unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
+    for(size_t i = 0; i != sizeof(double); i++) {
+        memory[location + i] = dp[i];
+    }
 }
 
 void Asm::insertDataInt(int data, size_t location) {
-
+    unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
+    for(size_t i = 0; i != sizeof(int); i++) {
+        memory[location + i] = dp[i];
+    }
 }
 
 void Asm::insertDataChar(char data, size_t location) {
-
+    unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
+    for(size_t i = 0; i != sizeof(char); i++) {
+        memory[location + i] = dp[i];
+    }
 }
 
 void Asm::reset() {
