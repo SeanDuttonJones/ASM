@@ -9,7 +9,7 @@ void Asm::start() {
     }
 }
 
-void Asm::insertOperation(Operation *operation, int64_t location) {
+void Asm::insertOperation(Operation *operation, size_t location) {
     operations.insert(operations.begin() + location, operation);
 }
 

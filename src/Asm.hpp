@@ -18,13 +18,13 @@ class Asm {
         static const size_t MEMORY_SIZE = 65536;
         vector<Operation*> operations;
         array<unsigned char, MEMORY_SIZE> memory;
-        int64_t pc;
+        size_t pc;
 
     public:
         Asm();
         ~Asm();
         void start();
-        void insertOperation(Operation *operation, int64_t location);
+        void insertOperation(Operation *operation, size_t location);
         void insertDataFloat(double data, size_t location);
         void insertDataInt(int data, size_t location);
         void insertDataChar(char data, size_t location);
