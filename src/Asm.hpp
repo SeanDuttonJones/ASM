@@ -25,7 +25,9 @@ class Asm {
         ~Asm();
         void start();
         void insertOperation(Operation *operation, int64_t location);
-        void insertData(array<unsigned char, MEMORY_SIZE> data, size_t size, int64_t location);
+        void insertDataFloat(double data, size_t location);
+        void insertDataInt(int data, size_t location);
+        void insertDataChar(char data, size_t location);
         void reset();
 };
 

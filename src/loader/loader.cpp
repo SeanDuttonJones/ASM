@@ -37,38 +37,53 @@ void Loader::load(std::filesystem::path input) {
         
         OperationType operationType = pOperation->getOperationType();
         if(operationType == OperationType::INSTRUCTION) {
-            cout << "INSTRUCTION" << endl;
-            stackMachine.insertOperation(pOperation, iptr);
-            iptr++;
-            pOperation->install();
+            loadInstruction(pOperation);
 
         } else if(operationType == OperationType::LABEL) {
-            cout << "LABEL" << endl;
-            if(pOperation->getValueType() != Type::STRING) {
-                cerr << "Invalid value for OperationType Label" << endl;
-                return;
-            }
-
-            string label = any_cast<string>(pOperation->getValue());
-            symbolTable.insert(label, iptr);
+            loadLabel(pOperation);
 
         } else if(operationType == OperationType::DLABEL) {
-            cout << "DLABEL" << endl;
-            if(pOperation->getValueType() != Type::STRING) {
-                cerr << "Invalid value for OperationType DLabel" << endl;
-                return;
-            }
-
-            string label = any_cast<string>(pOperation->getValue());
-            symbolTable.insert(label, dptr);
-
-        } else if(operationType == OperationType::DIRECTIVE) {
-            cout << "DIRECTIVE" << endl;
+            loadDLabel(pOperation);
             
+        } else if(operationType == OperationType::DIRECTIVE) {
+            loadDirective(pOperation);
         }
 
         cout << pOperation->toString() << endl;
     }
+}
+
+void Loader::loadInstruction(Operation *pOperation) {
+    cout << "INSTRUCTION" << endl;
+    stackMachine.insertOperation(pOperation, iptr);
+    iptr++;
+    pOperation->install();
+}
+
+void Loader::loadLabel(Operation *pOperation) {
+    cout << "LABEL" << endl;
+    if(pOperation->getValueType() != Type::STRING) {
+        cerr << "Invalid value for OperationType Label" << endl;
+        return;
+    }
+
+    string label = any_cast<string>(pOperation->getValue());
+    symbolTable.insert(label, iptr);
+}
+
+void Loader::loadDLabel(Operation *pOperation) {
+    cout << "DLABEL" << endl;
+    if(pOperation->getValueType() != Type::STRING) {
+        cerr << "Invalid value for OperationType DLabel" << endl;
+        return;
+    }
+
+    string label = any_cast<string>(pOperation->getValue());
+    symbolTable.insert(label, dptr);
+}
+
+void Loader::loadDirective(Operation *pOperation) {
+    cout << "DIRECTIVE" << endl;
 }
 
 Operation* Loader::parseLine(string line) {

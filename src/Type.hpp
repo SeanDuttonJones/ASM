@@ -9,13 +9,15 @@
 // CHARACTER    : 1 byte
 // INTEGER      : 4 bytes
 // FLOAT        : 8 bytes
+// STRING       : special type for handling label Operations
+// BOOLEAN      : special type for debugging. SHOULD NOT BE USED
 enum class Type {
-    BOOLEAN,
     CHARACTER,
     INTEGER,
-    STRING,
     FLOAT,
-    NONE
+    STRING,
+    BOOLEAN,
+    NONE,
 };
 
 class TypeTools {

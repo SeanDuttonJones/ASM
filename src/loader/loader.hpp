@@ -20,6 +20,11 @@ class Loader {
         vector<string> readFile(std::filesystem::path input);
         
         Operation* parseLine(string line);
+        void loadInstruction(Operation *pOperation);
+        void loadLabel(Operation *pOperation);
+        void loadDLabel(Operation *pOperation);
+        void loadDirective(Operation *pOperation);
+        
         vector<string> tokenize(string line);
         any parseValue(string value);
     public:
