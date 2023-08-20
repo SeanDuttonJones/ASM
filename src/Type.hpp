@@ -4,6 +4,11 @@
 #include <typeindex>
 #include <map>
 
+
+// Technically only need:
+// CHARACTER    : 1 byte
+// INTEGER      : 4 bytes
+// FLOAT        : 8 bytes
 enum class Type {
     BOOLEAN,
     CHARACTER,
