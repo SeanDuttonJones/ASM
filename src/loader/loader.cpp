@@ -18,7 +18,7 @@ vector<string> Loader::readFile(std::filesystem::path input) {
     source.open(input);
     if(source.is_open()) {
         string line;
-        while(getline(source, line)) {
+        while(getline(source, line)) { 
             lines.push_back(line);
         }
     }
@@ -98,7 +98,8 @@ void Loader::loadDirective(Operation *pOperation) {
         double data = any_cast<double>(pOperation->getValue());
         stackMachine.insertDataFloat(data, dptr);
         dptr += 8;
-
+    } else if(pOperation->getValueType() == Type::STRING) {
+        
     } else {
         cerr << "Invalid data type for OperationType Directive" << endl;
     }

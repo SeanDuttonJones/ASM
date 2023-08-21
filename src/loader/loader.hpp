@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <filesystem>
+#include <map>
 
 #include "Asm.hpp"
 #include "SymbolTable.hpp"
@@ -14,8 +15,9 @@ class Loader {
     private:
         Asm stackMachine;
         SymbolTable symbolTable;
-        int64_t iptr;
-        int64_t dptr;
+        map<string, size_t> dataLabelTable;
+        size_t iptr;
+        size_t dptr;
 
         vector<string> readFile(std::filesystem::path input);
         
