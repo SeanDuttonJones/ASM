@@ -9,34 +9,34 @@ void Asm::start() {
     }
 }
 
-void Asm::insertOperation(Operation *operation, size_t location) {
+void Asm::insertOperation(Operation *operation, uint32_t location) {
     operations.insert(operations.begin() + location, operation);
 }
 
-void Asm::insertDataFloat(double data, size_t location) {
+void Asm::insertDataFloat(double data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(size_t i = 0; i != sizeof(double); i++) {
+    for(int i = 0; i != sizeof(double); i++) {
         memory[location + i] = dp[i];
     }
 }
 
-void Asm::insertDataInt(int data, size_t location) {
+void Asm::insertDataInt(int data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(size_t i = 0; i != sizeof(int); i++) {
+    for(int i = 0; i != sizeof(int); i++) {
         memory[location + i] = dp[i];
     }
 }
 
-void Asm::insertDataChar(char data, size_t location) {
+void Asm::insertDataChar(char data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(size_t i = 0; i != sizeof(char); i++) {
+    for(int i = 0; i != sizeof(char); i++) {
         memory[location + i] = dp[i];
     }
 }
 
-void Asm::insertDataAddress(size_t data, size_t location) {
+void Asm::insertDataAddress(uint32_t data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(size_t i = 0; i != sizeof(size_t); i++) {
+    for(int i = 0; i != sizeof(size_t); i++) {
         memory[location + i] = dp[i];
     }
 }

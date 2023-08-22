@@ -15,20 +15,20 @@ class Operation;
 
 class Asm {
     private:
-        static const size_t MEMORY_SIZE = 65536;
+        static const uint32_t MEMORY_SIZE = 65536;
         vector<Operation*> operations;
         array<unsigned char, MEMORY_SIZE> memory;
-        size_t pc;
+        uint32_t pc;
 
     public:
         Asm();
         ~Asm();
         void start();
-        void insertOperation(Operation *operation, size_t location);
-        void insertDataFloat(double data, size_t location);
-        void insertDataInt(int data, size_t location);
-        void insertDataChar(char data, size_t location);
-        void insertDataAddress(size_t data, size_t location);
+        void insertOperation(Operation *operation, uint32_t location);
+        void insertDataFloat(double data, uint32_t location);
+        void insertDataInt(int data, uint32_t location);
+        void insertDataChar(char data, uint32_t location);
+        void insertDataAddress(uint32_t data, uint32_t location);
         void reset();
 };
 
