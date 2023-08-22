@@ -36,9 +36,13 @@ void Asm::insertDataChar(char data, uint32_t location) {
 
 void Asm::insertDataAddress(uint32_t data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(int i = 0; i != sizeof(size_t); i++) {
+    for(int i = 0; i != sizeof(uint32_t); i++) {
         memory[location + i] = dp[i];
     }
+}
+
+vector<Operation*> Asm::getOperations() {
+    return operations;
 }
 
 void Asm::reset() {

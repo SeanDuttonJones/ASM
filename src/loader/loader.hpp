@@ -14,10 +14,10 @@ using namespace std;
 class Loader {
     private:
         Asm stackMachine;
-        map<string, size_t> symbolTable;
-        map<string, size_t> dataLabelTable;
-        size_t iptr;
-        size_t dptr;
+        map<string, uint32_t> symbolTable;
+        map<string, uint32_t> dataLabelTable;
+        uint32_t iptr;
+        uint32_t dptr;
 
         vector<string> readFile(std::filesystem::path input);
         

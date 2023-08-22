@@ -104,7 +104,7 @@ void Loader::loadDirective(Operation *pOperation) {
     } else if(pOperation->getValueType() == Type::STRING) {
         string dataLabel = any_cast<string>(pOperation->getValue());
         dataLabelTable.insert({dataLabel, dptr});
-        dptr += sizeof(size_t);
+        dptr += sizeof(uint32_t);
 
     } else {
         cerr << "Invalid data type for OperationType Directive" << endl;
@@ -113,14 +113,17 @@ void Loader::loadDirective(Operation *pOperation) {
 
 void Loader::resolveSymbols() {
     // resolve in instruction store first
-    // for each operation in operations:
-    //  if operation.type == string:
-    //      operation.value = symbolTable[operation.value(str)]
-    //      operation.type = address
+    for(Operation *pOperation : stackMachine.getOperations()) {
+        if(pOperation->getValueType() == Type::STRING) {
+            string oldValue = any_cast<string>(pOperation->getValue());
+            pOperation->setValue(symbolTable.at(oldValue));
+            pOperation->setValueType(Type::INTEGER);
+        }
+    }
 
     // resolve in memory second
     for(auto const& [symbol, location] : dataLabelTable) {
-        size_t STData = symbolTable.at(symbol);
+        uint32_t STData = symbolTable.at(symbol);
         stackMachine.insertDataAddress(STData, location);
     }
 }

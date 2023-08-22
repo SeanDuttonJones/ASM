@@ -32,12 +32,20 @@ Opcode Operation::getOpcode() {
     return opcode;
 }
 
+Type Operation::getValueType() {
+    return valueType;
+}
+
+void Operation::setValueType(Type type) {
+    valueType = type;
+}
+
 std::any Operation::getValue() {
     return value;
 }
 
-Type Operation::getValueType() {
-    return valueType;
+void Operation::setValue(std::any value) {
+    this->value = value;
 }
 
 std::string Operation::toString() {

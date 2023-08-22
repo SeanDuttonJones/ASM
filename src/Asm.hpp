@@ -24,11 +24,15 @@ class Asm {
         Asm();
         ~Asm();
         void start();
+
         void insertOperation(Operation *operation, uint32_t location);
         void insertDataFloat(double data, uint32_t location);
         void insertDataInt(int data, uint32_t location);
         void insertDataChar(char data, uint32_t location);
         void insertDataAddress(uint32_t data, uint32_t location);
+
+        vector<Operation*> getOperations();
+
         void reset();
 };
 

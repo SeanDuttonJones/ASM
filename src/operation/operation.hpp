@@ -30,12 +30,19 @@ class Operation {
         Operation(Asm &stackMachine, OperationType operationType, Opcode opcode);
         Operation(Asm &stackMachine, OperationType operationType, Opcode opcode, std::any value);
         virtual ~Operation();
+        
         virtual void install();
         virtual void execute();
+        
         virtual OperationType getOperationType();
         virtual Opcode getOpcode();
-        virtual std::any getValue();
+        
         virtual Type getValueType();
+        virtual void setValueType(Type type);
+
+        virtual std::any getValue();
+        virtual void setValue(std::any value);
+
         virtual std::string toString();
 };
 
