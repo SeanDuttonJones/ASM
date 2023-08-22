@@ -14,7 +14,7 @@ using namespace std;
 class Loader {
     private:
         Asm stackMachine;
-        SymbolTable symbolTable;
+        map<string, size_t> symbolTable;
         map<string, size_t> dataLabelTable;
         size_t iptr;
         size_t dptr;
@@ -26,7 +26,8 @@ class Loader {
         void loadLabel(Operation *pOperation);
         void loadDLabel(Operation *pOperation);
         void loadDirective(Operation *pOperation);
-        
+        void resolveSymbols();
+
         vector<string> tokenize(string line);
         any parseValue(string value);
     public:

@@ -49,6 +49,8 @@ void Loader::load(std::filesystem::path input) {
             loadDirective(pOperation);
         }
 
+        resolveSymbols();
+
         cout << pOperation->toString() << endl;
     }
 }
@@ -68,7 +70,7 @@ void Loader::loadLabel(Operation *pOperation) {
     }
 
     string label = any_cast<string>(pOperation->getValue());
-    symbolTable.insert(label, iptr);
+    symbolTable.insert({label, iptr});
 }
 
 void Loader::loadDLabel(Operation *pOperation) {
@@ -79,7 +81,7 @@ void Loader::loadDLabel(Operation *pOperation) {
     }
 
     string label = any_cast<string>(pOperation->getValue());
-    symbolTable.insert(label, dptr);
+    symbolTable.insert({label, dptr});
 }
 
 void Loader::loadDirective(Operation *pOperation) {
@@ -87,21 +89,39 @@ void Loader::loadDirective(Operation *pOperation) {
     if(pOperation->getValueType() == Type::CHARACTER) {
         char data = any_cast<char>(pOperation->getValue());
         stackMachine.insertDataChar(data, dptr);
-        dptr += 1;
+        dptr += sizeof(char);
 
     } else if(pOperation->getValueType() == Type::INTEGER) {
         int data = any_cast<int>(pOperation->getValue());
         stackMachine.insertDataInt(data, dptr);
-        dptr += 4;
+        dptr += sizeof(int);
 
     } else if(pOperation->getValueType() == Type::FLOAT) {
         double data = any_cast<double>(pOperation->getValue());
         stackMachine.insertDataFloat(data, dptr);
-        dptr += 8;
+        dptr += sizeof(double);
+
     } else if(pOperation->getValueType() == Type::STRING) {
-        
+        string dataLabel = any_cast<string>(pOperation->getValue());
+        dataLabelTable.insert({dataLabel, dptr});
+        dptr += sizeof(size_t);
+
     } else {
         cerr << "Invalid data type for OperationType Directive" << endl;
+    }
+}
+
+void Loader::resolveSymbols() {
+    // resolve in instruction store first
+    // for each operation in operations:
+    //  if operation.type == string:
+    //      operation.value = symbolTable[operation.value(str)]
+    //      operation.type = address
+
+    // resolve in memory second
+    for(auto const& [symbol, location] : dataLabelTable) {
+        size_t STData = symbolTable.at(symbol);
+        stackMachine.insertDataAddress(STData, location);
     }
 }
 

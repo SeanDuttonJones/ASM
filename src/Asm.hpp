@@ -28,6 +28,7 @@ class Asm {
         void insertDataFloat(double data, size_t location);
         void insertDataInt(int data, size_t location);
         void insertDataChar(char data, size_t location);
+        void insertDataAddress(size_t data, size_t location);
         void reset();
 };
 
