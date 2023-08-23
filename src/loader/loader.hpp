@@ -13,7 +13,7 @@ using namespace std;
 
 class Loader {
     private:
-        Asm stackMachine;
+        Asm *stackMachine;
         map<string, uint32_t> symbolTable;
         map<string, uint32_t> dataLabelTable;
         uint32_t iptr;
@@ -31,7 +31,7 @@ class Loader {
         vector<string> tokenize(string line);
         any parseValue(string value);
     public:
-        Loader(Asm stackMachine);
+        Loader(Asm *stackMachine);
         void load(std::filesystem::path input);
 };
 

@@ -20,15 +20,15 @@ enum class OperationType {
 
 class Operation {
     protected:
-        Asm &stackMachine;
+        Asm *stackMachine;
         OperationType operationType;
         Opcode opcode;
         std::any value;
         Type valueType;
 
     public:
-        Operation(Asm &stackMachine, OperationType operationType, Opcode opcode);
-        Operation(Asm &stackMachine, OperationType operationType, Opcode opcode, std::any value);
+        Operation(Asm *stackMachine, OperationType operationType, Opcode opcode);
+        Operation(Asm *stackMachine, OperationType operationType, Opcode opcode, std::any value);
         virtual ~Operation();
         
         virtual void install();

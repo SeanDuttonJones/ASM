@@ -4,9 +4,8 @@
 #include <any>
 #include "operation_factory.hpp"
 
-Loader::Loader(Asm stackMachine)
-    : stackMachine(stackMachine)
-{
+Loader::Loader(Asm *stackMachine) {
+    this->stackMachine = stackMachine;
     this->iptr = 0;
     this->dptr = 0;
 }
@@ -51,19 +50,19 @@ void Loader::load(std::filesystem::path input) {
 
         resolveSymbols();
 
-        cout << pOperation->toString() << endl;
+        // cout << pOperation->toString() << endl;
     }
 }
 
 void Loader::loadInstruction(Operation *pOperation) {
-    cout << "INSTRUCTION" << endl;
-    stackMachine.insertOperation(pOperation, iptr);
+    // cout << "INSTRUCTION" << endl;
+    stackMachine->insertOperation(pOperation);
     iptr++;
     pOperation->install();
 }
 
 void Loader::loadLabel(Operation *pOperation) {
-    cout << "LABEL" << endl;
+    // cout << "LABEL" << endl;
     if(pOperation->getValueType() != Type::STRING) {
         cerr << "Invalid value for OperationType Label" << endl;
         return;
@@ -74,7 +73,7 @@ void Loader::loadLabel(Operation *pOperation) {
 }
 
 void Loader::loadDLabel(Operation *pOperation) {
-    cout << "DLABEL" << endl;
+    // cout << "DLABEL" << endl;
     if(pOperation->getValueType() != Type::STRING) {
         cerr << "Invalid value for OperationType DLabel" << endl;
         return;
@@ -85,20 +84,20 @@ void Loader::loadDLabel(Operation *pOperation) {
 }
 
 void Loader::loadDirective(Operation *pOperation) {
-    cout << "DIRECTIVE" << endl;
+    // cout << "DIRECTIVE" << endl;
     if(pOperation->getValueType() == Type::CHARACTER) {
         char data = any_cast<char>(pOperation->getValue());
-        stackMachine.insertDataChar(data, dptr);
+        stackMachine->insertDataChar(data, dptr);
         dptr += sizeof(char);
 
     } else if(pOperation->getValueType() == Type::INTEGER) {
         int data = any_cast<int>(pOperation->getValue());
-        stackMachine.insertDataInt(data, dptr);
+        stackMachine->insertDataInt(data, dptr);
         dptr += sizeof(int);
 
     } else if(pOperation->getValueType() == Type::FLOAT) {
         double data = any_cast<double>(pOperation->getValue());
-        stackMachine.insertDataFloat(data, dptr);
+        stackMachine->insertDataFloat(data, dptr);
         dptr += sizeof(double);
 
     } else if(pOperation->getValueType() == Type::STRING) {
@@ -113,7 +112,7 @@ void Loader::loadDirective(Operation *pOperation) {
 
 void Loader::resolveSymbols() {
     // resolve in instruction store first
-    for(Operation *pOperation : stackMachine.getOperations()) {
+    for(Operation *pOperation : stackMachine->getOperations()) {
         if(pOperation->getValueType() == Type::STRING) {
             string oldValue = any_cast<string>(pOperation->getValue());
             pOperation->setValue(symbolTable.at(oldValue));
@@ -124,7 +123,7 @@ void Loader::resolveSymbols() {
     // resolve in memory second
     for(auto const& [symbol, location] : dataLabelTable) {
         uint32_t STData = symbolTable.at(symbol);
-        stackMachine.insertDataAddress(STData, location);
+        stackMachine->insertDataAddress(STData, location);
     }
 }
 

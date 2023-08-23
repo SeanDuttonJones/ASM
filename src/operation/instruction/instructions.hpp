@@ -5,7 +5,7 @@
 
 class PushIInstruction : public Operation {
     public:
-        PushIInstruction(Asm &stackMachine, any value);
+        PushIInstruction(Asm *stackMachine, any value);
         void install();
         void execute();
 };

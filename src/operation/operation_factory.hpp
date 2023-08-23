@@ -7,7 +7,7 @@
 
 class OperationFactory {
     public:
-        static Operation* make(Asm &stackMachine, Opcode opcode, any value);
+        static Operation* make(Asm *stackMachine, Opcode opcode, any value);
 };
 
 #endif

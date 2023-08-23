@@ -1,17 +1,15 @@
 #include "operation.hpp"
 
-Operation::Operation(Asm &stackMachine, OperationType operationType, Opcode opcode) 
-    : stackMachine(stackMachine)
-{
+Operation::Operation(Asm *stackMachine, OperationType operationType, Opcode opcode) {
+    this->stackMachine = stackMachine;
     this->operationType = operationType;
     this->opcode = opcode;
     this->value = 0;
     this->valueType = Type::NONE;
 }
 
-Operation::Operation(Asm &stackMachine, OperationType operationType, Opcode opcode, any value)
-    : stackMachine(stackMachine)
-{
+Operation::Operation(Asm *stackMachine, OperationType operationType, Opcode opcode, any value) {
+    this->stackMachine = stackMachine;
     this->operationType = operationType;
     this->opcode = opcode;
     this->value = value;

@@ -3,14 +3,25 @@
 Asm::Asm() {}
 
 void Asm::start() {
-    for(int i = 0; i < operations.size(); i++) {
+    cout << "STARTING STACK MACHINE" << endl;
+    
+    // print operation store
+    cout << "OPERATION STORE SIZE: " << operations.size() << endl;
+    for(uint64_t i = 0; i < operations.size(); i++) {
+        cout << i << " : " << operations[i]->toString() << endl;
+    }
+    
+    // print memory
+
+    for(uint64_t i = 0; i < operations.size(); i++) {
         operations[i]->execute();
         pc++;
     }
 }
 
-void Asm::insertOperation(Operation *operation, uint32_t location) {
-    operations.insert(operations.begin() + location, operation);
+void Asm::insertOperation(Operation *operation) {
+    operations.push_back(operation);
+    cout << "INSERT OPERATION: SIZE - " << operations.size() << endl;
 }
 
 void Asm::insertDataFloat(double data, uint32_t location) {
