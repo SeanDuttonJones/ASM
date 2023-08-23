@@ -2,13 +2,11 @@
 
 Asm::Asm() {}
 
-void Asm::start() {
-    cout << "STARTING STACK MACHINE..." << endl;
-    
+void Asm::start() {    
     // print operation store
     printf("OPERATION STORE\n");
     for(uint64_t i = 0; i < operations.size(); i++) {
-        printf("%lu\t:%s\n", i, operations[i]->toString().c_str());
+        printf("%lu\t: %s\n", i, operations[i]->toString().c_str());
     }
     printf("\n");
     
@@ -27,7 +25,6 @@ void Asm::start() {
 
 void Asm::insertOperation(Operation *operation) {
     operations.push_back(operation);
-    cout << "INSERT OPERATION: SIZE - " << operations.size() << endl;
 }
 
 void Asm::insertDataFloat(double data, uint32_t location) {

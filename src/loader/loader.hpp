@@ -6,7 +6,6 @@
 #include <map>
 
 #include "Asm.hpp"
-#include "SymbolTable.hpp"
 #include "operation.hpp"
 
 using namespace std;

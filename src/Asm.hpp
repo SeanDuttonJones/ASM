@@ -18,8 +18,9 @@ class Asm {
         static const uint32_t MEMORY_SIZE = 32;
         //static const uint32_t MEMORY_SIZE = 512000000; // default 512 megabytes of memory
         vector<Operation*> operations;
-        array<unsigned char, MEMORY_SIZE> memory;
         uint64_t pc;
+
+        array<unsigned char, MEMORY_SIZE> memory;
 
     public:
         Asm();
@@ -27,7 +28,7 @@ class Asm {
         void start();
 
         void insertOperation(Operation *operation);
-        
+
         void insertDataFloat(double data, uint32_t location);
         void insertDataInt(int data, uint32_t location);
         void insertDataChar(char data, uint32_t location);

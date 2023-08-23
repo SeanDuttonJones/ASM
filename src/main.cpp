@@ -37,8 +37,11 @@ int main() {
     Loader loader(stackMachine);
     cout << "LOADING..." << endl;
     loader.load("./input/test.asm");
+    cout << "LOADING COMPLETE!\n" << endl;
     
+    cout << "STARTING STACK MACHINE..." << endl;
     stackMachine->start();
+    cout << "STACK MACHINE FINISHED!" << endl;
     
     delete stackMachine;
 };
