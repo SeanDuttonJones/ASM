@@ -3,15 +3,21 @@
 Asm::Asm() {}
 
 void Asm::start() {
-    cout << "STARTING STACK MACHINE" << endl;
+    cout << "STARTING STACK MACHINE..." << endl;
     
     // print operation store
-    cout << "OPERATION STORE SIZE: " << operations.size() << endl;
+    printf("OPERATION STORE\n");
     for(uint64_t i = 0; i < operations.size(); i++) {
-        cout << i << " : " << operations[i]->toString() << endl;
+        printf("%lu\t:%s\n", i, operations[i]->toString().c_str());
     }
+    printf("\n");
     
     // print memory
+    printf("MEMORY\n");
+    for(uint32_t i = 0; i < MEMORY_SIZE; i++) {
+        printf("%u\t: 0x%02X\n", i, memory[i]);
+    }
+    printf("\n");
 
     for(uint64_t i = 0; i < operations.size(); i++) {
         operations[i]->execute();
