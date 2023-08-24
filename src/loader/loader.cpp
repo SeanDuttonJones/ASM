@@ -140,7 +140,7 @@ Operation* Loader::parseLine(string line) {
         value = parseValue(tokens[1]);
     }
 
-    Operation *pOperation = OperationFactory::make(stackMachine->getStack(), opcode, value);
+    Operation *pOperation = OperationFactory::make(stackMachine->getContext(), opcode, value);
     return pOperation;
 }
 

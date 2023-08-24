@@ -8,6 +8,7 @@
 #include "Asm.hpp"
 #include "Opcode.hpp"
 #include "Type.hpp"
+#include "context_interface.hpp"
 
 // forward declaration since we have a circular dependency with Asm.hpp
 // TODO: fix circular dependency
@@ -22,7 +23,7 @@ enum class OperationType {
 
 class Operation {
     protected:
-        std::stack<std::any> *stack;
+        IContext *context;
         
         OperationType operationType;
         Opcode opcode;
@@ -31,8 +32,8 @@ class Operation {
         Type valueType;
 
     public:
-        Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode);
-        Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode, std::any value);
+        Operation(IContext *context, OperationType operationType, Opcode opcode);
+        Operation(IContext *context, OperationType operationType, Opcode opcode, std::any value);
         virtual ~Operation();
         
         virtual void install();

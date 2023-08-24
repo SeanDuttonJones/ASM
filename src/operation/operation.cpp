@@ -1,15 +1,15 @@
 #include "operation.hpp"
 
-Operation::Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode) {
-    this->stack = stack;
+Operation::Operation(IContext *context, OperationType operationType, Opcode opcode) {
+    this->context = context;
     this->operationType = operationType;
     this->opcode = opcode;
     this->value = 0;
     this->valueType = Type::NONE;
 }
 
-Operation::Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode, any value) {
-    this->stack = stack;
+Operation::Operation(IContext *context, OperationType operationType, Opcode opcode, any value) {
+    this->context = context;
     this->operationType = operationType;
     this->opcode = opcode;
     this->value = value;

@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-PushIInstruction::PushIInstruction(std::stack<std::any> *stack, any value) 
-    : Operation(stack, OperationType::INSTRUCTION, Opcode::PushI, value)
+PushIInstruction::PushIInstruction(IContext *context, any value) 
+    : Operation(context, OperationType::INSTRUCTION, Opcode::PushI, value)
 {}
 
 void PushIInstruction::install() {

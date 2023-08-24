@@ -5,7 +5,7 @@
 
 class PushIInstruction : public Operation {
     public:
-        PushIInstruction(std::stack<std::any> *stack, any value);
+        PushIInstruction(IContext *context, any value);
         void install();
         void execute();
 };

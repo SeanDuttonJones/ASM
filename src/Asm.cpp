@@ -1,6 +1,21 @@
 #include "Asm.hpp"
 
-Asm::Asm() {}
+Asm::Asm(uint32_t memorySize) {
+    this->pc = 0;
+
+    this->stack = new std::stack<any>();
+    
+    this->memorySize = memorySize;
+    this->memory = new vector<unsigned char>(memorySize);
+
+    this->stackAccessor = new DefaultStackAccess(stack);
+    this->memoryAccessor = new DefaultMemoryAccess(memory);
+    this->context = new DefaultContext(stackAccessor, memoryAccessor);
+}
+
+Asm::Asm() {
+    Asm(32);
+}
 
 void Asm::start() {    
     // print operation store
@@ -12,8 +27,8 @@ void Asm::start() {
     
     // print memory
     printf("MEMORY\n");
-    for(uint32_t i = 0; i < MEMORY_SIZE; i++) {
-        printf("%u\t: 0x%02X\n", i, memory[i]);
+    for(uint32_t i = 0; i < memorySize; i++) {
+        printf("%u\t: 0x%02X\n", i, memory->at(i));
     }
     printf("\n");
 
@@ -30,28 +45,28 @@ void Asm::insertOperation(Operation *operation) {
 void Asm::insertDataFloat(double data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
     for(int i = 0; i != sizeof(double); i++) {
-        memory[location + i] = dp[i];
+        memory->at(location + i) = dp[i];
     }
 }
 
 void Asm::insertDataInt(int data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
     for(int i = 0; i != sizeof(int); i++) {
-        memory[location + i] = dp[i];
+        memory->at(location + i) = dp[i];
     }
 }
 
 void Asm::insertDataChar(char data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
     for(int i = 0; i != sizeof(char); i++) {
-        memory[location + i] = dp[i];
+        memory->at(location + i) = dp[i];
     }
 }
 
 void Asm::insertDataAddress(uint32_t data, uint32_t location) {
     unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
     for(int i = 0; i != sizeof(uint32_t); i++) {
-        memory[location + i] = dp[i];
+        memory->at(location + i) = dp[i];
     }
 }
 
@@ -59,13 +74,16 @@ vector<Operation*> Asm::getOperations() {
     return operations;
 }
 
-std::stack<any>* Asm::getStack() {
-    return stack;
+IContext* Asm::getContext() {
+    return context;
 }
 
 void Asm::reset() {
     operations.clear();
-    memory.fill(0);
+    
+    memory->clear();
+    memory->reserve(memorySize);
+
     pc = 0;
 }
 
@@ -75,4 +93,10 @@ Asm::~Asm() {
             delete operations[i];
         }
     }
+
+    delete stack;
+    delete memory;
+    delete stackAccessor;
+    delete memoryAccessor;
+    delete context;
 }

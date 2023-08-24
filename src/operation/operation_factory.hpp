@@ -7,7 +7,7 @@
 
 class OperationFactory {
     public:
-        static Operation* make(std::stack<std::any> *stack, Opcode opcode, any value);
+        static Operation* make(IContext *context, Opcode opcode, any value);
 };
 
 #endif

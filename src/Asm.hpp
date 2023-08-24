@@ -8,7 +8,10 @@
 #include <any>
 
 #include "operation.hpp"
-#include "value.hpp"
+
+#include "default_context.hpp"
+#include "default_stack_access.hpp"
+#include "default_memory_access.hpp"
 
 using namespace std;
 
@@ -18,17 +21,21 @@ class Operation;
 
 class Asm {
     private:
-        static const uint32_t MEMORY_SIZE = 32;
-        //static const uint32_t MEMORY_SIZE = 512000000; // default 512 megabytes of memory
         vector<Operation*> operations;
         uint64_t pc;
 
-        array<unsigned char, MEMORY_SIZE> memory;
+        std::stack<std::any> *stack;
 
-        std::stack<any> *stack;
+        uint32_t memorySize;
+        vector<unsigned char> *memory;
+
+        DefaultStackAccess *stackAccessor;
+        DefaultMemoryAccess *memoryAccessor;
+        DefaultContext *context;
 
     public:
         Asm();
+        Asm(uint32_t memorySize);
         ~Asm();
         void start();
 
@@ -40,7 +47,7 @@ class Asm {
         void insertDataAddress(uint32_t data, uint32_t location);
 
         vector<Operation*> getOperations();
-        std::stack<any>* getStack();
+        IContext* getContext();
 
         void reset();
 };
