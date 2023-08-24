@@ -1,15 +1,15 @@
 #include "operation.hpp"
 
-Operation::Operation(Asm *stackMachine, OperationType operationType, Opcode opcode) {
-    this->stackMachine = stackMachine;
+Operation::Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode) {
+    this->stack = stack;
     this->operationType = operationType;
     this->opcode = opcode;
     this->value = 0;
     this->valueType = Type::NONE;
 }
 
-Operation::Operation(Asm *stackMachine, OperationType operationType, Opcode opcode, any value) {
-    this->stackMachine = stackMachine;
+Operation::Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode, any value) {
+    this->stack = stack;
     this->operationType = operationType;
     this->opcode = opcode;
     this->value = value;
@@ -51,17 +51,20 @@ std::string Operation::toString() {
     std::string valueStr = "";
     
     switch (valueType) {
-    case Type::BOOLEAN:
+    case Type::BOOL:
         valueStr = std::to_string(std::any_cast<bool>(value));
         break;
-    case Type::CHARACTER:
+    case Type::CHAR:
         valueStr = std::to_string(std::any_cast<char>(value));
         break;
-    case Type::INTEGER:
+    case Type::INT:
         valueStr = std::to_string(std::any_cast<int>(value));
         break;
     case Type::FLOAT:
         valueStr = std::to_string(std::any_cast<float>(value));
+        break;
+    case Type::DOUBLE:
+        valueStr = std::to_string(std::any_cast<double>(value));
         break;
     case Type::STRING:
         valueStr = std::any_cast<std::string>(value);

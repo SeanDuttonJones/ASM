@@ -4,20 +4,14 @@
 #include <typeindex>
 #include <map>
 
-
-// Technically only need:
-// CHARACTER    : 1 byte
-// INTEGER      : 4 bytes
-// FLOAT        : 8 bytes
-// STRING       : special type for handling label Operations
-// BOOLEAN      : special type for debugging. SHOULD NOT BE USED
 enum class Type {
-    CHARACTER,
-    INTEGER,
+    BOOL,
+    CHAR,
+    INT,
     FLOAT,
+    DOUBLE,
     STRING,
-    BOOLEAN,
-    NONE,
+    NONE
 };
 
 class TypeTools {

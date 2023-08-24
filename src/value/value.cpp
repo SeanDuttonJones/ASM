@@ -1,6 +1,6 @@
 #include "value.hpp"
 
-Value::Value(std::any value, Type type) {
+Value::Value(std::any value, ValueType type) {
     this->value = value;
     this->type = type;
 }
@@ -13,6 +13,6 @@ void Value::setValue(std::any value) {
     this->value = value;
 }
 
-Type Value::getType() {
+ValueType Value::getType() {
     return type;
 }

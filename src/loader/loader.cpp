@@ -85,12 +85,12 @@ void Loader::loadDLabel(Operation *pOperation) {
 
 void Loader::loadDirective(Operation *pOperation) {
     // cout << "DIRECTIVE" << endl;
-    if(pOperation->getValueType() == Type::CHARACTER) {
+    if(pOperation->getValueType() == Type::CHAR) {
         char data = any_cast<char>(pOperation->getValue());
         stackMachine->insertDataChar(data, dptr);
         dptr += sizeof(char);
 
-    } else if(pOperation->getValueType() == Type::INTEGER) {
+    } else if(pOperation->getValueType() == Type::INT) {
         int data = any_cast<int>(pOperation->getValue());
         stackMachine->insertDataInt(data, dptr);
         dptr += sizeof(int);
@@ -116,7 +116,7 @@ void Loader::resolveSymbols() {
         if(pOperation->getValueType() == Type::STRING) {
             string oldValue = any_cast<string>(pOperation->getValue());
             pOperation->setValue(symbolTable.at(oldValue));
-            pOperation->setValueType(Type::INTEGER);
+            pOperation->setValueType(Type::INT);
         }
     }
 
@@ -139,7 +139,8 @@ Operation* Loader::parseLine(string line) {
     if(tokens.size() == 2) {
         value = parseValue(tokens[1]);
     }
-    Operation *pOperation = OperationFactory::make(stackMachine, opcode, value);
+
+    Operation *pOperation = OperationFactory::make(stackMachine->getStack(), opcode, value);
     return pOperation;
 }
 

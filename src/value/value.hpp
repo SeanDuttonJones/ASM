@@ -3,21 +3,22 @@
 
 #include <any>
 
-enum class Type {
+enum class ValueType {
     CHAR,
     INT,
-    FLOAT
+    FLOAT,
+    LABEL
 };
 
 class Value {
     private:
-        Type type;
+        ValueType type;
         std::any value;
 
     public:
-        Value(std::any value, Type type);
+        Value(std::any value, ValueType type);
 
-        Type getType();
+        ValueType getType();
         std::any getValue();
         void setValue(std::any value);
 

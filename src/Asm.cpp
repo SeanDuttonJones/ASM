@@ -59,6 +59,10 @@ vector<Operation*> Asm::getOperations() {
     return operations;
 }
 
+std::stack<any>* Asm::getStack() {
+    return stack;
+}
+
 void Asm::reset() {
     operations.clear();
     memory.fill(0);

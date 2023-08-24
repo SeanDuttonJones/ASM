@@ -1,20 +1,22 @@
 #include "Type.hpp"
 
 std::map<std::type_index, Type> TypeTools::typeMap = {
-    {std::type_index(typeid(bool)), Type::BOOLEAN},
-    {std::type_index(typeid(char)), Type::CHARACTER},
-    {std::type_index(typeid(int)), Type::INTEGER},
-    {std::type_index(typeid(std::string)), Type::STRING},
+    {std::type_index(typeid(bool)), Type::BOOL},
+    {std::type_index(typeid(char)), Type::CHAR},
+    {std::type_index(typeid(int)), Type::INT},
     {std::type_index(typeid(float)), Type::FLOAT},
+    {std::type_index(typeid(double)), Type::DOUBLE},
+    {std::type_index(typeid(std::string)), Type::STRING},
     {std::type_index(typeid(void)), Type::NONE}
 };
 
 std::map<Type, std::string> TypeTools::typeStringMap = {
-    {Type::BOOLEAN, "Boolean"},
-    {Type::CHARACTER, "Character"},
-    {Type::INTEGER, "Integer"},
-    {Type::STRING, "String"},
+    {Type::BOOL, "Boolean"},
+    {Type::CHAR, "Character"},
+    {Type::INT, "Integer"},
     {Type::FLOAT, "Float"},
+    {Type::DOUBLE, "Double"},
+    {Type::STRING, "String"},
     {Type::NONE, "None"}
 };
 

@@ -3,13 +3,15 @@
 
 #include <any>
 #include <string>
+#include <stack>
+
 #include "Asm.hpp"
 #include "Opcode.hpp"
 #include "Type.hpp"
 
 // forward declaration since we have a circular dependency with Asm.hpp
 // TODO: fix circular dependency
-class Asm;
+// class Asm;
 
 enum class OperationType {
     INSTRUCTION,
@@ -20,15 +22,17 @@ enum class OperationType {
 
 class Operation {
     protected:
-        Asm *stackMachine;
+        std::stack<std::any> *stack;
+        
         OperationType operationType;
         Opcode opcode;
+        
         std::any value;
         Type valueType;
 
     public:
-        Operation(Asm *stackMachine, OperationType operationType, Opcode opcode);
-        Operation(Asm *stackMachine, OperationType operationType, Opcode opcode, std::any value);
+        Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode);
+        Operation(std::stack<std::any> *stack, OperationType operationType, Opcode opcode, std::any value);
         virtual ~Operation();
         
         virtual void install();

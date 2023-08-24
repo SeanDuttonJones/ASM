@@ -3,9 +3,12 @@
 
 #include <iostream>
 #include <vector>
+#include <stack>
 #include <array>
-#include <variant>
+#include <any>
+
 #include "operation.hpp"
+#include "value.hpp"
 
 using namespace std;
 
@@ -22,6 +25,8 @@ class Asm {
 
         array<unsigned char, MEMORY_SIZE> memory;
 
+        std::stack<any> *stack;
+
     public:
         Asm();
         ~Asm();
@@ -35,6 +40,7 @@ class Asm {
         void insertDataAddress(uint32_t data, uint32_t location);
 
         vector<Operation*> getOperations();
+        std::stack<any>* getStack();
 
         void reset();
 };
