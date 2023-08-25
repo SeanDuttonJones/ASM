@@ -10,10 +10,6 @@
 #include "Type.hpp"
 #include "context_interface.hpp"
 
-// forward declaration since we have a circular dependency with Asm.hpp
-// TODO: fix circular dependency
-// class Asm;
-
 enum class OperationType {
     INSTRUCTION,
     LABEL,

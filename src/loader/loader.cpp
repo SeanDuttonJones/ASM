@@ -49,7 +49,6 @@ void Loader::load(std::filesystem::path input) {
         }
 
         resolveSymbols();
-
         // cout << pOperation->toString() << endl;
     }
 }
@@ -84,20 +83,21 @@ void Loader::loadDLabel(Operation *pOperation) {
 }
 
 void Loader::loadDirective(Operation *pOperation) {
+    IMemoryAccess *memoryAccessor = stackMachine->getContext()->getMemoryAccess();
     // cout << "DIRECTIVE" << endl;
     if(pOperation->getValueType() == Type::CHAR) {
         char data = any_cast<char>(pOperation->getValue());
-        stackMachine->insertDataChar(data, dptr);
+        memoryAccessor->writeChar(dptr, data);
         dptr += sizeof(char);
 
     } else if(pOperation->getValueType() == Type::INT) {
         int data = any_cast<int>(pOperation->getValue());
-        stackMachine->insertDataInt(data, dptr);
+        memoryAccessor->writeInt(dptr, data);
         dptr += sizeof(int);
 
     } else if(pOperation->getValueType() == Type::FLOAT) {
         double data = any_cast<double>(pOperation->getValue());
-        stackMachine->insertDataFloat(data, dptr);
+        memoryAccessor->writeDouble(dptr, data);
         dptr += sizeof(double);
 
     } else if(pOperation->getValueType() == Type::STRING) {
@@ -121,9 +121,10 @@ void Loader::resolveSymbols() {
     }
 
     // resolve in memory second
+    IMemoryAccess *memoryAccessor = stackMachine->getContext()->getMemoryAccess();
     for(auto const& [symbol, location] : dataLabelTable) {
-        uint32_t STData = symbolTable.at(symbol);
-        stackMachine->insertDataAddress(STData, location);
+        uint32_t address = symbolTable.at(symbol);
+        memoryAccessor->writeAddress(location, address);
     }
 }
 

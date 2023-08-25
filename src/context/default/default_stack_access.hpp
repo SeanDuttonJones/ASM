@@ -7,14 +7,19 @@
 #include "stack_access_interface.hpp"
 
 class DefaultStackAccess : public IStackAccess<std::any> {
+    private:
+        std::stack<std::any> *stack;
+
     public:
         DefaultStackAccess(std::stack<std::any> *stack);
-        
-        void push(std::any data) ;
-        std::any pop();
-        
-        std::uint32_t size();
+
+        std::any top();
+
         bool empty();
+        uint64_t size();
+
+        void push(std::any data);
+        void pop();
 };
 
 #endif

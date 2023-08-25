@@ -13,9 +13,7 @@ Asm::Asm(uint32_t memorySize) {
     this->context = new DefaultContext(stackAccessor, memoryAccessor);
 }
 
-Asm::Asm() {
-    Asm(32);
-}
+Asm::Asm() : Asm(32) {}
 
 void Asm::start() {    
     // print operation store
@@ -38,36 +36,17 @@ void Asm::start() {
     }
 }
 
+void Asm::reset() {
+    operations.clear();
+    
+    memory->clear();
+    memory->reserve(memorySize);
+
+    pc = 0;
+}
+
 void Asm::insertOperation(Operation *operation) {
     operations.push_back(operation);
-}
-
-void Asm::insertDataFloat(double data, uint32_t location) {
-    unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(int i = 0; i != sizeof(double); i++) {
-        memory->at(location + i) = dp[i];
-    }
-}
-
-void Asm::insertDataInt(int data, uint32_t location) {
-    unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(int i = 0; i != sizeof(int); i++) {
-        memory->at(location + i) = dp[i];
-    }
-}
-
-void Asm::insertDataChar(char data, uint32_t location) {
-    unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(int i = 0; i != sizeof(char); i++) {
-        memory->at(location + i) = dp[i];
-    }
-}
-
-void Asm::insertDataAddress(uint32_t data, uint32_t location) {
-    unsigned char const *dp = reinterpret_cast<unsigned char const *>(&data);
-    for(int i = 0; i != sizeof(uint32_t); i++) {
-        memory->at(location + i) = dp[i];
-    }
 }
 
 vector<Operation*> Asm::getOperations() {
@@ -76,15 +55,6 @@ vector<Operation*> Asm::getOperations() {
 
 IContext* Asm::getContext() {
     return context;
-}
-
-void Asm::reset() {
-    operations.clear();
-    
-    memory->clear();
-    memory->reserve(memorySize);
-
-    pc = 0;
 }
 
 Asm::~Asm() {

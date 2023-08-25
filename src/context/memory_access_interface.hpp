@@ -9,13 +9,15 @@ class IMemoryAccess {
         virtual int readInt(uint32_t location) = 0;
         virtual float readFloat(uint32_t location) = 0;
         virtual double readDouble(uint32_t location) = 0;
-        virtual unsigned char* read(uint32_t location, uint32_t size) = 0;
+        virtual uint32_t readAddress(uint32_t location) = 0;
+        virtual void read(uint32_t location, uint32_t size, unsigned char* data) = 0;
 
         virtual void writeChar(uint32_t location, char data) = 0;
         virtual void writeInt(uint32_t location, int data) = 0;
         virtual void writeFloat(uint32_t location, float data) = 0;
         virtual void writeDouble(uint32_t location, double data) = 0;
-        virtual void write(uint32_t location, unsigned char* data) = 0;
+        virtual void writeAddress(uint32_t location, uint32_t data) = 0;
+        virtual void write(uint32_t location, uint32_t size, unsigned char const* data) = 0;
 
         virtual uint32_t size() = 0;
 };

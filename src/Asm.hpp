@@ -15,8 +15,6 @@
 
 using namespace std;
 
-// forward declaration since we have a circular dependency with operation.hpp
-// TODO: fix circular dependency
 class Operation;
 
 class Asm {
@@ -37,19 +35,14 @@ class Asm {
         Asm();
         Asm(uint32_t memorySize);
         ~Asm();
+
         void start();
+        void reset();
 
         void insertOperation(Operation *operation);
-
-        void insertDataFloat(double data, uint32_t location);
-        void insertDataInt(int data, uint32_t location);
-        void insertDataChar(char data, uint32_t location);
-        void insertDataAddress(uint32_t data, uint32_t location);
-
         vector<Operation*> getOperations();
+        
         IContext* getContext();
-
-        void reset();
 };
 
 #endif
