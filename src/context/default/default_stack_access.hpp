@@ -6,7 +6,7 @@
 
 #include "stack_access_interface.hpp"
 
-class DefaultStackAccess : public IStackAccess<std::any> {
+class DefaultStackAccess : public IStackAccess {
     private:
         std::stack<std::any> *stack;
 

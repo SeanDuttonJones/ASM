@@ -2,15 +2,16 @@
 #define ABS_STACK_ACCESS_CLASS
 
 #include <cstdint>
+#include <any>
 
-template <class T> class IStackAccess {
+class IStackAccess {
     public:
-        virtual T top() = 0;
+        virtual std::any top() = 0;
 
         virtual bool empty() = 0;
         virtual uint64_t size() = 0;
 
-        virtual void push(T data) = 0;
+        virtual void push(std::any data) = 0;
         virtual void pop() = 0;
 };
 

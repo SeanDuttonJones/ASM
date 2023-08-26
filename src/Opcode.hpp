@@ -6,7 +6,7 @@
 enum class Opcode {
     PushI,
     DLabel,
-    Add,
+    AddI,
     Subtract,
     Multiply,
     Divide,

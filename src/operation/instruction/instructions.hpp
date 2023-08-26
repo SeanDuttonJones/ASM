@@ -10,4 +10,21 @@ class PushIInstruction : public Operation {
         void execute();
 };
 
+class AddIInstruction : public Operation {
+    public:
+        AddIInstruction(IContext *context);
+        void install();
+        void execute();
+};
+
+class PStackInstruction : public Operation {
+    private:
+        string anyToString(std::any value);
+    
+    public:
+        PStackInstruction(IContext *context);
+        void install();
+        void execute();
+};
+
 #endif

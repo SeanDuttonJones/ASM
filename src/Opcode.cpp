@@ -3,14 +3,16 @@
 std::map<std::string, Opcode> OpcodeTools::opcodeMap = {
     {"PushI", Opcode::PushI},
     {"DLabel", Opcode::DLabel},
-    {"Add", Opcode::Add}
+    {"AddI", Opcode::AddI},
+    {"PStack", Opcode::PStack}
 };
 
 std::map<Opcode, std::string> OpcodeTools::opcodeStringMap = {
     {Opcode::PushI, "PushI"},
     {Opcode::DLabel, "DLabel"},
-    {Opcode::Add, "Add"},
-    {Opcode::Error, "Error"}
+    {Opcode::AddI, "AddI"},
+    {Opcode::Error, "Error"},
+    {Opcode::PStack, "PStack"}
 };
 
 Opcode OpcodeTools::getOpcode(std::string s) {

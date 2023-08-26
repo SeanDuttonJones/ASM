@@ -13,4 +13,6 @@ void PushIInstruction::install() {
 
 void PushIInstruction::execute() {
     // std::cout << "PushI: executing" << std::endl;
+    IStackAccess *stackAccessor = context->getStackAccess();
+    stackAccessor->push(value);
 }
