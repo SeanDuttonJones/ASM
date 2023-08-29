@@ -4,6 +4,8 @@
 #include "loader.hpp"
 #include <charconv>
 
+#include "operation_factory.h"
+
 using namespace std;
 
 int main() {
@@ -31,6 +33,9 @@ int main() {
     // }
 
     // cout << "K: " << k << endl;
+
+    OperationFactory *operationFactory = OperationFactory::getInstance();
+
 
     Asm *stackMachine = new Asm();
     
