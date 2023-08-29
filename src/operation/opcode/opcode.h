@@ -24,6 +24,8 @@ class NewOpcode {
         std::vector<Type> getOperandTypes();
         uint32_t getNumOperands();
         OperationType getOperationType();
+
+        bool operator<(const NewOpcode &rhs) const;
 };
 
 #endif

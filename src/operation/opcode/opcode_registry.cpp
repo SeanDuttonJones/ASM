@@ -7,9 +7,8 @@ OpcodeRegistry* OpcodeRegistry::pInstance = NULL;
 OpcodeRegistry::OpcodeRegistry() {}
 
 OpcodeRegistry* OpcodeRegistry::getInstance() {
-    if(pInstance == NULL) {
+    if(pInstance == nullptr) {
         pInstance = new OpcodeRegistry();
-        return pInstance;
     }
 
     return pInstance;

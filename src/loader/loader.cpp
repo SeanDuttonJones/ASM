@@ -2,7 +2,7 @@
 
 #include <fstream>
 #include <any>
-#include "operation_factory.hpp"
+#include "operation_factory.h"
 
 Loader::Loader(Asm *stackMachine) {
     this->stackMachine = stackMachine;
@@ -141,8 +141,8 @@ Operation* Loader::parseLine(string line) {
         value = parseValue(tokens[1]);
     }
 
-    Operation *pOperation = OperationFactory::make(stackMachine->getContext(), opcode, value);
-    return pOperation;
+    // Operation *pOperation = OperationFactory::make(stackMachine->getContext(), opcode, value);
+    // return pOperation;
 }
 
 vector<string> Loader::tokenize(string line) {

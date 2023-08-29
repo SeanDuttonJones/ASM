@@ -27,3 +27,11 @@ uint32_t NewOpcode::getNumOperands() {
 OperationType NewOpcode::getOperationType() {
     return type;
 }
+
+bool NewOpcode::operator<(const NewOpcode &rhs) const {
+    if(this->numCode < rhs.numCode) {
+        return true;
+    }
+
+    return false;
+}
