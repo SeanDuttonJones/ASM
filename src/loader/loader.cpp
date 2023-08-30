@@ -90,7 +90,7 @@ void Loader::loadDirective(Operation *pOperation) {
         memoryAccessor->writeInt(dptr, data);
         dptr += sizeof(int);
 
-    } else if(operandType == Type::FLOAT) {
+    } else if(operandType == Type::DOUBLE) {
         double data = any_cast<double>(pOperation->getOperand());
         memoryAccessor->writeDouble(dptr, data);
         dptr += sizeof(double);
@@ -115,11 +115,6 @@ void Loader::resolveSymbols() {
             delete pOperation;
             pOperation = operationFactory->make(opcode, symbolTable.at(oldValue));
         }
-        // if(operandType == Type::STRING) {
-        //     string oldValue = any_cast<string>(pOperation->getOperand());
-        //     pOperation->setValue(symbolTable.at(oldValue));
-        //     pOperation->setValueType(Type::INT);
-        // }
     }
 
     // resolve in memory second
@@ -179,7 +174,7 @@ any Loader::parseValue(string value) {
         int iValue = std::stoi(value, &pos);
         
         if(pos < value.size() && value[pos] == '.') {
-            float fValue = std::stof(value, &pos);
+            double fValue = std::stod(value, &pos);
             
             if(pos < value.size()) {
                 return value;

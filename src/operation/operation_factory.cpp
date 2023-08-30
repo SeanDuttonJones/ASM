@@ -1,5 +1,4 @@
 #include "operation_factory.h"
-#include "instructions.hpp"
 
 void OperationFactory::registerOp(Opcode opcode, IOperationInitializer *initializer) {
     registry.insert({opcode, initializer});

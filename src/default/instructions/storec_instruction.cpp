@@ -1,16 +1,17 @@
 #include "instructions.h"
 
-LoadIInstruction::LoadIInstruction(Opcode opcode, std::any operand) 
+StoreCInstruction::StoreCInstruction(Opcode opcode, std::any operand)
     : Operation(opcode, operand)
 {}
 
-void LoadIInstruction::execute(IContext *context) {
+void StoreCInstruction::execute(IContext *context) {
     IStackAccess *stackAccessor = context->getStackAccess();
     IMemoryAccess *memoryAccessor = context->getMemoryAccess();
 
+    char value = (char)(std::any_cast<int>(stackAccessor->top()));
+    stackAccessor->pop();
     int memoryLocation = std::any_cast<int>(stackAccessor->top());
     stackAccessor->pop();
 
-    int value = memoryAccessor->readInt(memoryLocation);
-    stackAccessor->push(value);
+    memoryAccessor->writeChar(memoryLocation, value);
 }

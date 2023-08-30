@@ -9,6 +9,12 @@ class PushIInstruction : public Operation {
         void execute(IContext *context);
 };
 
+class PushFInstruction : public Operation {
+    public:
+        PushFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 class AddIInstruction : public Operation {
     public:
         AddIInstruction(Opcode opcode, std::any operand);
@@ -30,15 +36,39 @@ class PMemInstruction : public Operation {
         void execute(IContext *context);
 };
 
+class StoreCInstruction : public Operation {
+    public:
+        StoreCInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 class StoreIInstruction : public Operation {
     public:
         StoreIInstruction(Opcode opcode, std::any operand);
         void execute(IContext *context);
 };
 
+class StoreFInstruction : public Operation {
+    public:
+        StoreFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class LoadCInstruction : public Operation {
+    public:
+        LoadCInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 class LoadIInstruction : public Operation {
     public:
         LoadIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class LoadFInstruction : public Operation {
+    public:
+        LoadFInstruction(Opcode opcode, std::any operand);
         void execute(IContext *context);
 };
 

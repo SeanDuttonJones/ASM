@@ -1,10 +1,9 @@
-PushI   5
-PushI   345345
+PushI   0
+PushF   0.125
 PStack
-StoreI
+StoreF
 PStack
 PMem
-PushI 5
-PStack
-LoadI
+PushI   0
+LoadF
 PStack

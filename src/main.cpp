@@ -21,6 +21,13 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     opcodeRegistry->registerOp(pushIOp);
     operationFactory->registerOp(pushIOp, pushIInitializer);
 
+    // PushF Instruction
+    Opcode pushFOp(OperationType::INSTRUCTION, "PushF", Type::DOUBLE);
+    IOperationInitializer *pushFInitializer = new PushFInitializer();
+
+    opcodeRegistry->registerOp(pushFOp);
+    operationFactory->registerOp(pushFOp, pushFInitializer);
+
     // AddI Instruction
     Opcode addIOp(OperationType::INSTRUCTION, "AddI", Type::INT);
     IOperationInitializer *addIInitializer = new AddIInitializer();
@@ -42,6 +49,13 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     opcodeRegistry->registerOp(pMemOp);
     operationFactory->registerOp(pMemOp, pMemInitializer);
 
+    // StoreC Instruction
+    Opcode storeCOp(OperationType::INSTRUCTION, "StoreC", Type::CHAR);
+    IOperationInitializer *storeCInitializer = new StoreCInitializer();
+
+    opcodeRegistry->registerOp(storeCOp);
+    operationFactory->registerOp(storeCOp, storeCInitializer);
+
     // StoreI Instruction
     Opcode storeIOp(OperationType::INSTRUCTION, "StoreI", Type::INT);
     IOperationInitializer *storeIInitializer = new StoreIInitializer();
@@ -49,12 +63,33 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     opcodeRegistry->registerOp(storeIOp);
     operationFactory->registerOp(storeIOp, storeIInitializer);
 
+    // StoreF Instruction
+    Opcode storeFOp(OperationType::INSTRUCTION, "StoreF", Type::DOUBLE);
+    IOperationInitializer *storeFInitializer = new StoreFInitializer();
+
+    opcodeRegistry->registerOp(storeFOp);
+    operationFactory->registerOp(storeFOp, storeFInitializer);
+
+    // LoadC Instruction
+    Opcode loadCOp(OperationType::INSTRUCTION, "LoadC", Type::CHAR);
+    IOperationInitializer *loadCInitializer = new LoadCInitializer();
+
+    opcodeRegistry->registerOp(loadCOp);
+    operationFactory->registerOp(loadCOp, loadCInitializer);
+
     // LoadI Instruction
     Opcode loadIOp(OperationType::INSTRUCTION, "LoadI", Type::INT);
     IOperationInitializer *loadIInitializer = new LoadIInitializer();
 
     opcodeRegistry->registerOp(loadIOp);
     operationFactory->registerOp(loadIOp, loadIInitializer);
+
+    // LoadF Instruction
+    Opcode loadFOp(OperationType::INSTRUCTION, "LoadF", Type::DOUBLE);
+    IOperationInitializer *loadFInitializer = new LoadFInitializer();
+
+    opcodeRegistry->registerOp(loadFOp);
+    operationFactory->registerOp(loadFOp, loadFInitializer);
 }
 
 int main() {

@@ -1,4 +1,4 @@
-#include "instructions.hpp"
+#include "instructions.h"
 
 StoreIInstruction::StoreIInstruction(Opcode opcode, std::any operand)
     : Operation(opcode, operand)

@@ -27,6 +27,9 @@ std::string Operation::toString() {
 
     } else if(operandType == Type::FLOAT) {
         out += std::to_string(std::any_cast<float>(operand));
+
+    } else if(operandType == Type::DOUBLE) {
+        out += std::to_string(std::any_cast<double>(operand));
     }
 
     return out;
