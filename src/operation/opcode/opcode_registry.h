@@ -8,11 +8,11 @@
 
 class OpcodeRegistry {
     private:
-        std::unordered_map<std::string, NewOpcode> registry;
+        std::unordered_map<std::string, Opcode> registry;
 
     public:
-        void registerOp(NewOpcode opcode);
-        NewOpcode retrieveOp(std::string opcode);
+        void registerOp(Opcode opcode);
+        Opcode retrieveOp(std::string opcode);
 };
 
 #endif

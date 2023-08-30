@@ -2,14 +2,14 @@
 #include <array>
 #include <charconv>
 
-#include "Asm.hpp"
-#include "loader.hpp"
+#include "asm.h"
+#include "loader.h"
 #include "operation_factory.h"
-#include "operation.hpp"
+#include "operation.h"
 #include "opcode_registry.h"
 #include "initializers.h"
 #include "opcode.h"
-#include "Type.hpp"
+#include "type.h"
 
 using namespace std;
 
@@ -43,21 +43,21 @@ int main() {
     OperationFactory *operationFactory = new OperationFactory();
 
     // PushI Instruction
-    NewOpcode pushIOp(OperationType::INSTRUCTION, "PushI", Type::INT);
+    Opcode pushIOp(OperationType::INSTRUCTION, "PushI", Type::INT);
     IOperationInitializer *pushIInitializer = new PushIInitializer();
 
     opcodeRegistry->registerOp(pushIOp);
     operationFactory->registerOp(pushIOp, pushIInitializer);
 
     // AddI Instruction
-    NewOpcode addIOp(OperationType::INSTRUCTION, "AddI", Type::INT);
+    Opcode addIOp(OperationType::INSTRUCTION, "AddI", Type::INT);
     IOperationInitializer *addIInitializer = new AddIInitializer();
 
     opcodeRegistry->registerOp(addIOp);
     operationFactory->registerOp(addIOp, addIInitializer);
 
     // PStack Instruction
-    NewOpcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
+    Opcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
     IOperationInitializer *pStackInitializer = new PStackInitializer();
 
     opcodeRegistry->registerOp(pStackOp);

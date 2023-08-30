@@ -1,10 +1,10 @@
-#include "operation.hpp"
+#include "operation.h"
 #include "instructions.hpp"
 
 #include <iostream>
 #include <any>
 
-PStackInstruction::PStackInstruction(NewOpcode opcode, std::any operand) 
+PStackInstruction::PStackInstruction(Opcode opcode, std::any operand) 
     : Operation(opcode, operand)
 {}
 

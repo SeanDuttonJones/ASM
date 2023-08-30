@@ -1,10 +1,10 @@
-#include "operation.hpp"
+#include "operation.h"
 #include "instructions.hpp"
 
 #include <iostream>
 #include <any>
 
-AddIInstruction::AddIInstruction(NewOpcode opcode, std::any operand)
+AddIInstruction::AddIInstruction(Opcode opcode, std::any operand)
     : Operation(opcode, operand)
 {}
 

@@ -1,4 +1,4 @@
-#include "loader.hpp"
+#include "loader.h"
 
 #include <fstream>
 #include <any>
@@ -108,7 +108,7 @@ void Loader::loadDirective(Operation *pOperation) {
 void Loader::resolveSymbols() {
     // resolve in instruction store first
     for(Operation *pOperation : stackMachine->getOperations()) {
-        NewOpcode opcode = pOperation->getOpcode();
+        Opcode opcode = pOperation->getOpcode();
         OperationType operationType = opcode.getOperationType();
         if(operationType == OperationType::LABEL || operationType == OperationType::DLABEL) {
             string oldValue = any_cast<string>(pOperation->getOperand());
@@ -137,7 +137,7 @@ Operation* Loader::parseLine(string line) {
         exit(1);
     }
 
-    NewOpcode opcode = opcodeRegistry->retrieveOp(tokens[0]);
+    Opcode opcode = opcodeRegistry->retrieveOp(tokens[0]);
     any operand = 0;
     if(tokens.size() == 2) {
         operand = parseValue(tokens[1]);

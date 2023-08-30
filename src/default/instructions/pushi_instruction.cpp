@@ -1,9 +1,9 @@
-#include "operation.hpp"
+#include "operation.h"
 #include "instructions.hpp"
 
 #include <iostream>
 
-PushIInstruction::PushIInstruction(NewOpcode opcode, std::any operand)
+PushIInstruction::PushIInstruction(Opcode opcode, std::any operand)
     : Operation(opcode, operand)
 {}
 

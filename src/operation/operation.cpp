@@ -1,11 +1,11 @@
-#include "operation.hpp"
+#include "operation.h"
 
-Operation::Operation(NewOpcode opcode, std::any operand) {
+Operation::Operation(Opcode opcode, std::any operand) {
     this->opcode = opcode;
     this->operand = operand;
 }
 
-NewOpcode Operation::getOpcode() {
+Opcode Operation::getOpcode() {
     return opcode;
 }
 

@@ -39,15 +39,15 @@
 // };
 class Operation {
     protected:
-        NewOpcode opcode;
+        Opcode opcode;
         std::any operand;
 
     public:
-        Operation(NewOpcode opcode, std::any operand);
+        Operation(Opcode opcode, std::any operand);
 
         virtual void execute(IContext *context) = 0;
 
-        virtual NewOpcode getOpcode();
+        virtual Opcode getOpcode();
         virtual std::any getOperand();
         virtual std::string toString();
 };

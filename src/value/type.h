@@ -1,5 +1,5 @@
-#ifndef ASM_TYPE_H
-#define ASM_TYPE_H
+#ifndef TYPE_H
+#define TYPE_H
 
 #include <typeindex>
 #include <map>

@@ -9,11 +9,11 @@
 
 class OperationFactory {
     private:
-        std::map<NewOpcode, IOperationInitializer*> registry;
+        std::map<Opcode, IOperationInitializer*> registry;
 
     public:
-        void registerOp(NewOpcode opcode, IOperationInitializer *initializer);
-        Operation* make(NewOpcode opcode, std::any operand);
+        void registerOp(Opcode opcode, IOperationInitializer *initializer);
+        Operation* make(Opcode opcode, std::any operand);
 };
 
 #endif

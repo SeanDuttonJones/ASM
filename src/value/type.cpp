@@ -1,4 +1,4 @@
-#include "Type.hpp"
+#include "type.h"
 
 std::map<std::type_index, Type> TypeTools::typeMap = {
     {std::type_index(typeid(bool)), Type::BOOL},

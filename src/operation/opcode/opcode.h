@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "Type.hpp"
+#include "type.h"
 
 enum class OperationType {
     INSTRUCTION,
@@ -14,21 +14,21 @@ enum class OperationType {
     DIRECTIVE
 };
 
-class NewOpcode {
+class Opcode {
     private:
         OperationType type;
         std::string code;
         Type operandType;
 
     public:
-        NewOpcode(OperationType type, std::string code, Type operandType);
-        NewOpcode();
+        Opcode(OperationType type, std::string code, Type operandType);
+        Opcode();
         
         OperationType getOperationType();
         std::string getCode();
         Type getOperandType();
 
-        bool operator<(const NewOpcode &rhs) const;
+        bool operator<(const Opcode &rhs) const;
 };
 
 #endif

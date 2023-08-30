@@ -5,8 +5,8 @@
 #include <filesystem>
 #include <map>
 
-#include "Asm.hpp"
-#include "operation.hpp"
+#include "asm.h"
+#include "operation.h"
 #include "opcode_registry.h"
 #include "operation_factory.h"
 
