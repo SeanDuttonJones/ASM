@@ -9,7 +9,7 @@ char DefaultMemoryAccess::readChar(uint32_t location) {
     
     unsigned char *dp = reinterpret_cast<unsigned char *>(&data);
     read(location, sizeof(char), dp);
-    
+
     return data;
 }
 
@@ -36,7 +36,7 @@ double DefaultMemoryAccess::readDouble(uint32_t location) {
     
     unsigned char *dp = reinterpret_cast<unsigned char *>(&data);
     read(location, sizeof(double), dp);
-    
+
     return data;
 }
 
@@ -51,10 +51,9 @@ uint32_t DefaultMemoryAccess::readAddress(uint32_t location) {
 
 void DefaultMemoryAccess::read(uint32_t location, uint32_t size, unsigned char* dp) {
     for(uint32_t i = 0; i < size; i++) {
-        dp[i] = memory->at(i);
+        dp[i] = memory->at(location + i);
     }
 }
-
 
 void DefaultMemoryAccess::writeChar(uint32_t location, char data) {
     write(location, sizeof(char), reinterpret_cast<unsigned char const*>(&data));

@@ -1,37 +1,37 @@
 #include "asm.h"
 
-Asm::Asm(uint32_t memorySize) {
+Asm::Asm(uint32_t memorySize) 
+    : stackAccessor(&stack), memoryAccessor(&memory), context(&stackAccessor, &memoryAccessor)
+{
     this->pc = 0;
-
-    this->stack = new std::stack<any>();
     
     this->memorySize = memorySize;
-    this->memory = new vector<unsigned char>(memorySize);
-
-    this->stackAccessor = new DefaultStackAccess(stack);
-    this->memoryAccessor = new DefaultMemoryAccess(memory);
-    this->context = new DefaultContext(stackAccessor, memoryAccessor);
+    this->memory.resize(memorySize, 0);
 }
 
 Asm::Asm() : Asm(32) {}
 
-void Asm::start() {    
-    // print operation store
-    printf("OPERATION STORE\n");
-    for(uint64_t i = 0; i < operations.size(); i++) {
-        printf("%lu\t: %s\n", i, operations[i]->toString().c_str());
+void Asm::start(bool debug) {
+    if(debug) {
+        // print operation store
+        printf("OPERATION STORE\n");
+        for(uint64_t i = 0; i < operations.size(); i++) {
+            printf("%lu\t: %s\n", i, operations[i]->toString().c_str());
+        }
+        printf("\n");
+        
+        // print memory
+        printf("MEMORY\n");
+        for(uint32_t i = 0; i < memorySize; i++) {
+            printf("%u\t: 0x%02X\n", i, memory.at(i));
+        }
+        printf("\n");
+
+        printf("OUTPUT\n");
     }
-    printf("\n");
-    
-    // print memory
-    printf("MEMORY\n");
-    for(uint32_t i = 0; i < memorySize; i++) {
-        printf("%u\t: 0x%02X\n", i, memory->at(i));
-    }
-    printf("\n");
 
     for(uint64_t i = 0; i < operations.size(); i++) {
-        operations[i]->execute(context);
+        operations[i]->execute(&context);
         pc++;
     }
 }
@@ -39,8 +39,8 @@ void Asm::start() {
 void Asm::reset() {
     operations.clear();
     
-    memory->clear();
-    memory->reserve(memorySize);
+    memory.clear();
+    memory.resize(memorySize, 0);
 
     pc = 0;
 }
@@ -54,7 +54,7 @@ vector<Operation*> Asm::getOperations() {
 }
 
 IContext* Asm::getContext() {
-    return context;
+    return &context;
 }
 
 Asm::~Asm() {
@@ -63,10 +63,4 @@ Asm::~Asm() {
             delete operations[i];
         }
     }
-
-    delete stack;
-    delete memory;
-    delete stackAccessor;
-    delete memoryAccessor;
-    delete context;
 }

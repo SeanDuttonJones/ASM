@@ -19,4 +19,19 @@ class PStackInitializer : public IOperationInitializer {
         Operation* init(Opcode opcode, std::any operand);
 };
 
+class PMemInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class StoreIInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class LoadIInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
 #endif

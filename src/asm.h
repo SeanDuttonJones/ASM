@@ -22,21 +22,21 @@ class Asm {
         vector<Operation*> operations;
         uint64_t pc;
 
-        std::stack<std::any> *stack;
+        std::stack<std::any> stack;
 
         uint32_t memorySize;
-        vector<unsigned char> *memory;
+        vector<unsigned char> memory;
 
-        DefaultStackAccess *stackAccessor;
-        DefaultMemoryAccess *memoryAccessor;
-        DefaultContext *context;
+        DefaultStackAccess stackAccessor;
+        DefaultMemoryAccess memoryAccessor;
+        DefaultContext context;
 
     public:
         Asm();
         Asm(uint32_t memorySize);
         ~Asm();
 
-        void start();
+        void start(bool debug = false);
         void reset();
 
         void insertOperation(Operation *operation);

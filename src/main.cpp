@@ -13,8 +13,52 @@
 
 using namespace std;
 
+void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operationFactory) {
+    // PushI Instruction
+    Opcode pushIOp(OperationType::INSTRUCTION, "PushI", Type::INT);
+    IOperationInitializer *pushIInitializer = new PushIInitializer();
+
+    opcodeRegistry->registerOp(pushIOp);
+    operationFactory->registerOp(pushIOp, pushIInitializer);
+
+    // AddI Instruction
+    Opcode addIOp(OperationType::INSTRUCTION, "AddI", Type::INT);
+    IOperationInitializer *addIInitializer = new AddIInitializer();
+
+    opcodeRegistry->registerOp(addIOp);
+    operationFactory->registerOp(addIOp, addIInitializer);
+
+    // PStack Instruction
+    Opcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
+    IOperationInitializer *pStackInitializer = new PStackInitializer();
+
+    opcodeRegistry->registerOp(pStackOp);
+    operationFactory->registerOp(pStackOp, pStackInitializer);
+
+    // PMem Instruction
+    Opcode pMemOp(OperationType::INSTRUCTION, "PMem", Type::NONE);
+    IOperationInitializer *pMemInitializer = new PMemInitializer();
+
+    opcodeRegistry->registerOp(pMemOp);
+    operationFactory->registerOp(pMemOp, pMemInitializer);
+
+    // StoreI Instruction
+    Opcode storeIOp(OperationType::INSTRUCTION, "StoreI", Type::INT);
+    IOperationInitializer *storeIInitializer = new StoreIInitializer();
+
+    opcodeRegistry->registerOp(storeIOp);
+    operationFactory->registerOp(storeIOp, storeIInitializer);
+
+    // LoadI Instruction
+    Opcode loadIOp(OperationType::INSTRUCTION, "LoadI", Type::INT);
+    IOperationInitializer *loadIInitializer = new LoadIInitializer();
+
+    opcodeRegistry->registerOp(loadIOp);
+    operationFactory->registerOp(loadIOp, loadIInitializer);
+}
+
 int main() {
-    // array<unsigned char, 32> memory;
+    // vector<unsigned char> memory;
     
     // // LOADING VALUE INTO MEMORY
     // float f = 3.14f;
@@ -39,40 +83,15 @@ int main() {
 
     // cout << "K: " << k << endl;
 
-    OpcodeRegistry *opcodeRegistry = new OpcodeRegistry();
-    OperationFactory *operationFactory = new OperationFactory();
+    OpcodeRegistry opcodeRegistry;
+    OperationFactory operationFactory;
 
-    // PushI Instruction
-    Opcode pushIOp(OperationType::INSTRUCTION, "PushI", Type::INT);
-    IOperationInitializer *pushIInitializer = new PushIInitializer();
+    createInstructions(&opcodeRegistry, &operationFactory);
 
-    opcodeRegistry->registerOp(pushIOp);
-    operationFactory->registerOp(pushIOp, pushIInitializer);
+    Asm stackMachine;
 
-    // AddI Instruction
-    Opcode addIOp(OperationType::INSTRUCTION, "AddI", Type::INT);
-    IOperationInitializer *addIInitializer = new AddIInitializer();
-
-    opcodeRegistry->registerOp(addIOp);
-    operationFactory->registerOp(addIOp, addIInitializer);
-
-    // PStack Instruction
-    Opcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
-    IOperationInitializer *pStackInitializer = new PStackInitializer();
-
-    opcodeRegistry->registerOp(pStackOp);
-    operationFactory->registerOp(pStackOp, pStackInitializer);
-
-    Asm *stackMachine = new Asm();
-
-    Loader loader(stackMachine, opcodeRegistry, operationFactory);
-    cout << "LOADING..." << endl;
+    Loader loader(&stackMachine, &opcodeRegistry, &operationFactory);
     loader.load("./input/test.asm");
-    cout << "LOADING COMPLETE!\n" << endl;
     
-    cout << "STARTING STACK MACHINE..." << endl;
-    stackMachine->start();
-    cout << "STACK MACHINE FINISHED!" << endl;
-    
-    delete stackMachine;
+    stackMachine.start();
 };

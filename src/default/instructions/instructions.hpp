@@ -24,4 +24,22 @@ class PStackInstruction : public Operation {
         void execute(IContext *context);
 };
 
+class PMemInstruction : public Operation {
+    public:
+        PMemInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class StoreIInstruction : public Operation {
+    public:
+        StoreIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class LoadIInstruction : public Operation {
+    public:
+        LoadIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 #endif
