@@ -4,27 +4,23 @@
 #include <iostream>
 #include <any>
 
-AddIInstruction::AddIInstruction(IContext *context) 
-    : Operation(context, OperationType::INSTRUCTION, Opcode::AddI)
+AddIInstruction::AddIInstruction(NewOpcode opcode, std::any operand)
+    : Operation(opcode, operand)
 {}
 
-void AddIInstruction::install() {
-    // std::cout << "PushI: installing" << std::endl;
-}
-
-void AddIInstruction::execute() {
+void AddIInstruction::execute(IContext *context) {
     // std::cout << "PushI: executing" << std::endl;
     IStackAccess *stackAccessor = context->getStackAccess();
     
-    any operand1 = stackAccessor->top();
+    std::any operand1 = stackAccessor->top();
     stackAccessor->pop();
-    any operand2 = stackAccessor->top();
+    std::any operand2 = stackAccessor->top();
     stackAccessor->pop();
     
     if(TypeTools::getType(std::type_index(operand1.type())) != Type::INT 
         || TypeTools::getType(std::type_index(operand2.type())) != Type::INT) {
         
-        cerr << "Invalid operands for instruction AddI" << endl;
+        std::cerr << "Invalid operands for instruction AddI" << std::endl;
     }
 
     int a = std::any_cast<int>(operand1);

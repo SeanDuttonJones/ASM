@@ -6,10 +6,11 @@
 
 #include "operation.hpp"
 #include "context_interface.hpp"
+#include "opcode.h"
 
 class IOperationInitializer {
     public:
-        virtual Operation* init(IContext *context, std::vector<std::any> operands) = 0;
+        virtual Operation* init(NewOpcode opcode, std::any operand) = 0;
 };
 
 #endif

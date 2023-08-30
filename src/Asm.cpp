@@ -31,7 +31,7 @@ void Asm::start() {
     printf("\n");
 
     for(uint64_t i = 0; i < operations.size(); i++) {
-        operations[i]->execute();
+        operations[i]->execute(context);
         pc++;
     }
 }

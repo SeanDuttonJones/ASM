@@ -1,10 +1,15 @@
 #include <iostream>
 #include <array>
-#include "Asm.hpp"
-#include "loader.hpp"
 #include <charconv>
 
+#include "Asm.hpp"
+#include "loader.hpp"
 #include "operation_factory.h"
+#include "operation.hpp"
+#include "opcode_registry.h"
+#include "initializers.h"
+#include "opcode.h"
+#include "Type.hpp"
 
 using namespace std;
 
@@ -34,12 +39,33 @@ int main() {
 
     // cout << "K: " << k << endl;
 
-    OperationFactory *operationFactory = OperationFactory::getInstance();
+    OpcodeRegistry *opcodeRegistry = new OpcodeRegistry();
+    OperationFactory *operationFactory = new OperationFactory();
 
+    // PushI Instruction
+    NewOpcode pushIOp(OperationType::INSTRUCTION, "PushI", Type::INT);
+    IOperationInitializer *pushIInitializer = new PushIInitializer();
+
+    opcodeRegistry->registerOp(pushIOp);
+    operationFactory->registerOp(pushIOp, pushIInitializer);
+
+    // AddI Instruction
+    NewOpcode addIOp(OperationType::INSTRUCTION, "AddI", Type::INT);
+    IOperationInitializer *addIInitializer = new AddIInitializer();
+
+    opcodeRegistry->registerOp(addIOp);
+    operationFactory->registerOp(addIOp, addIInitializer);
+
+    // PStack Instruction
+    NewOpcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
+    IOperationInitializer *pStackInitializer = new PStackInitializer();
+
+    opcodeRegistry->registerOp(pStackOp);
+    operationFactory->registerOp(pStackOp, pStackInitializer);
 
     Asm *stackMachine = new Asm();
-    
-    Loader loader(stackMachine);
+
+    Loader loader(stackMachine, opcodeRegistry, operationFactory);
     cout << "LOADING..." << endl;
     loader.load("./input/test.asm");
     cout << "LOADING COMPLETE!\n" << endl;

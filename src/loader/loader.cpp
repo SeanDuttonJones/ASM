@@ -2,12 +2,18 @@
 
 #include <fstream>
 #include <any>
+
+#include "opcode.h"
+#include "opcode_registry.h"
 #include "operation_factory.h"
 
-Loader::Loader(Asm *stackMachine) {
+Loader::Loader(Asm *stackMachine, OpcodeRegistry *opcodeRegistry, OperationFactory *operationFactory) {
     this->stackMachine = stackMachine;
     this->iptr = 0;
     this->dptr = 0;
+
+    this->opcodeRegistry = opcodeRegistry;
+    this->operationFactory = operationFactory;
 }
 
 vector<string> Loader::readFile(std::filesystem::path input) {
@@ -31,10 +37,9 @@ void Loader::load(std::filesystem::path input) {
     string line;
     for(int i = 0; i < lines.size(); i++) {
         line = lines[i];
-
         Operation *pOperation = parseLine(line);
-        
-        OperationType operationType = pOperation->getOperationType();
+
+        OperationType operationType = pOperation->getOpcode().getOperationType();
         if(operationType == OperationType::INSTRUCTION) {
             loadInstruction(pOperation);
 
@@ -57,51 +62,41 @@ void Loader::loadInstruction(Operation *pOperation) {
     // cout << "INSTRUCTION" << endl;
     stackMachine->insertOperation(pOperation);
     iptr++;
-    pOperation->install();
 }
 
 void Loader::loadLabel(Operation *pOperation) {
     // cout << "LABEL" << endl;
-    if(pOperation->getValueType() != Type::STRING) {
-        cerr << "Invalid value for OperationType Label" << endl;
-        return;
-    }
-
-    string label = any_cast<string>(pOperation->getValue());
+    string label = any_cast<string>(pOperation->getOperand());
     symbolTable.insert({label, iptr});
 }
 
 void Loader::loadDLabel(Operation *pOperation) {
     // cout << "DLABEL" << endl;
-    if(pOperation->getValueType() != Type::STRING) {
-        cerr << "Invalid value for OperationType DLabel" << endl;
-        return;
-    }
-
-    string label = any_cast<string>(pOperation->getValue());
+    string label = any_cast<string>(pOperation->getOperand());
     symbolTable.insert({label, dptr});
 }
 
 void Loader::loadDirective(Operation *pOperation) {
     IMemoryAccess *memoryAccessor = stackMachine->getContext()->getMemoryAccess();
     // cout << "DIRECTIVE" << endl;
-    if(pOperation->getValueType() == Type::CHAR) {
-        char data = any_cast<char>(pOperation->getValue());
+    Type operandType = pOperation->getOpcode().getOperandType();
+    if(operandType == Type::CHAR) {
+        char data = any_cast<char>(pOperation->getOperand());
         memoryAccessor->writeChar(dptr, data);
         dptr += sizeof(char);
 
-    } else if(pOperation->getValueType() == Type::INT) {
-        int data = any_cast<int>(pOperation->getValue());
+    } else if(operandType == Type::INT) {
+        int data = any_cast<int>(pOperation->getOperand());
         memoryAccessor->writeInt(dptr, data);
         dptr += sizeof(int);
 
-    } else if(pOperation->getValueType() == Type::FLOAT) {
-        double data = any_cast<double>(pOperation->getValue());
+    } else if(operandType == Type::FLOAT) {
+        double data = any_cast<double>(pOperation->getOperand());
         memoryAccessor->writeDouble(dptr, data);
         dptr += sizeof(double);
 
-    } else if(pOperation->getValueType() == Type::STRING) {
-        string dataLabel = any_cast<string>(pOperation->getValue());
+    } else if(operandType == Type::STRING) {
+        string dataLabel = any_cast<string>(pOperation->getOperand());
         dataLabelTable.insert({dataLabel, dptr});
         dptr += sizeof(uint32_t);
 
@@ -113,11 +108,18 @@ void Loader::loadDirective(Operation *pOperation) {
 void Loader::resolveSymbols() {
     // resolve in instruction store first
     for(Operation *pOperation : stackMachine->getOperations()) {
-        if(pOperation->getValueType() == Type::STRING) {
-            string oldValue = any_cast<string>(pOperation->getValue());
-            pOperation->setValue(symbolTable.at(oldValue));
-            pOperation->setValueType(Type::INT);
+        NewOpcode opcode = pOperation->getOpcode();
+        OperationType operationType = opcode.getOperationType();
+        if(operationType == OperationType::LABEL || operationType == OperationType::DLABEL) {
+            string oldValue = any_cast<string>(pOperation->getOperand());
+            delete pOperation;
+            pOperation = operationFactory->make(opcode, symbolTable.at(oldValue));
         }
+        // if(operandType == Type::STRING) {
+        //     string oldValue = any_cast<string>(pOperation->getOperand());
+        //     pOperation->setValue(symbolTable.at(oldValue));
+        //     pOperation->setValueType(Type::INT);
+        // }
     }
 
     // resolve in memory second
@@ -135,14 +137,14 @@ Operation* Loader::parseLine(string line) {
         exit(1);
     }
 
-    Opcode opcode = OpcodeTools::getOpcode(tokens[0]);
-    any value = 0;
+    NewOpcode opcode = opcodeRegistry->retrieveOp(tokens[0]);
+    any operand = 0;
     if(tokens.size() == 2) {
-        value = parseValue(tokens[1]);
+        operand = parseValue(tokens[1]);
     }
 
-    // Operation *pOperation = OperationFactory::make(stackMachine->getContext(), opcode, value);
-    // return pOperation;
+    Operation *pOperation = operationFactory->make(opcode, operand);
+    return pOperation;
 }
 
 vector<string> Loader::tokenize(string line) {

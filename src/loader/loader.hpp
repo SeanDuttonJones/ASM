@@ -7,6 +7,8 @@
 
 #include "Asm.hpp"
 #include "operation.hpp"
+#include "opcode_registry.h"
+#include "operation_factory.h"
 
 using namespace std;
 
@@ -17,20 +19,23 @@ class Loader {
         map<string, uint32_t> dataLabelTable;
         uint32_t iptr;
         uint32_t dptr;
+        
+        OpcodeRegistry *opcodeRegistry;
+        OperationFactory *operationFactory;
 
         vector<string> readFile(std::filesystem::path input);
         
         Operation* parseLine(string line);
-        void loadInstruction(Operation *pOperation);
-        void loadLabel(Operation *pOperation);
-        void loadDLabel(Operation *pOperation);
-        void loadDirective(Operation *pOperation);
+        void loadInstruction(Operation* pOperation);
+        void loadLabel(Operation* pOperation);
+        void loadDLabel(Operation* pOperation);
+        void loadDirective(Operation* pOperation);
         void resolveSymbols();
 
         vector<string> tokenize(string line);
         any parseValue(string value);
     public:
-        Loader(Asm *stackMachine);
+        Loader(Asm *stackMachine, OpcodeRegistry *opcodeRegistry, OperationFactory *operationFactory);
         void load(std::filesystem::path input);
 };
 

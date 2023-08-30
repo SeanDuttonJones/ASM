@@ -1,35 +1,31 @@
 #include "opcode.h"
 
-NewOpcode::NewOpcode(uint32_t numCode, std::string textCode, std::vector<Type> operandTypes, OperationType type) {
-    this->numCode = numCode;
-    this->textCode = textCode;
-    this->operandTypes = operandTypes;
-    this->numOperands = operandTypes.size();
+NewOpcode::NewOpcode(OperationType type, std::string code, Type operandType) {
     this->type = type;
+    this->code = code;
+    this->operandType = operandType;
 }
 
-uint32_t NewOpcode::getNumberCode() {
-    return numCode;
-}
-
-std::string NewOpcode::getTextCode() {
-    return textCode;
-}
-
-std::vector<Type> NewOpcode::getOperandTypes() {
-    return operandTypes;
-}
-
-uint32_t NewOpcode::getNumOperands() {
-    return numOperands;
+NewOpcode::NewOpcode() {
+    this->type = OperationType::INSTRUCTION;
+    this->code = "Nop";
+    this->operandType = Type::NONE;
 }
 
 OperationType NewOpcode::getOperationType() {
     return type;
 }
 
+std::string NewOpcode::getCode() {
+    return code;
+}
+
+Type NewOpcode::getOperandType() {
+    return operandType;
+}
+
 bool NewOpcode::operator<(const NewOpcode &rhs) const {
-    if(this->numCode < rhs.numCode) {
+    if(this->code < rhs.code) {
         return true;
     }
 

@@ -6,24 +6,27 @@
 #include <vector>
 
 #include "Type.hpp"
-#include "operation.hpp"
+
+enum class OperationType {
+    INSTRUCTION,
+    LABEL,
+    DLABEL,
+    DIRECTIVE
+};
 
 class NewOpcode {
     private:
-        uint32_t numCode;
-        std::string textCode;
-        std::vector<Type> operandTypes;
-        uint32_t numOperands;
         OperationType type;
+        std::string code;
+        Type operandType;
 
     public:
-        NewOpcode(uint32_t numCode, std::string textCode, std::vector<Type> operandTypes, OperationType type);
+        NewOpcode(OperationType type, std::string code, Type operandType);
+        NewOpcode();
         
-        uint32_t getNumberCode();
-        std::string getTextCode();
-        std::vector<Type> getOperandTypes();
-        uint32_t getNumOperands();
         OperationType getOperationType();
+        std::string getCode();
+        Type getOperandType();
 
         bool operator<(const NewOpcode &rhs) const;
 };

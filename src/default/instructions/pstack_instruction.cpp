@@ -4,15 +4,11 @@
 #include <iostream>
 #include <any>
 
-PStackInstruction::PStackInstruction(IContext *context) 
-    : Operation(context, OperationType::INSTRUCTION, Opcode::PStack)
+PStackInstruction::PStackInstruction(NewOpcode opcode, std::any operand) 
+    : Operation(opcode, operand)
 {}
 
-void PStackInstruction::install() {
-    // std::cout << "PushI: installing" << std::endl;
-}
-
-void PStackInstruction::execute() {
+void PStackInstruction::execute(IContext *context) {
     // std::cout << "PStack: executing" << std::endl;
     IStackAccess *stackAccessor = context->getStackAccess();
     
@@ -35,7 +31,7 @@ void PStackInstruction::execute() {
     printf(" ]\n");
 }
 
-string PStackInstruction::anyToString(std::any value) {
+std::string PStackInstruction::anyToString(std::any value) {
     std::string valueStr = "";
     
     switch (TypeTools::getType(std::type_index(value.type()))) {
