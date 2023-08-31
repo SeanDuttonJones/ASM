@@ -4,16 +4,11 @@
 #include "operation_initializer_interface.h"
 #include "opcode.h"
 
-class PushIInitializer : public IOperationInitializer {
-    public:
-        Operation* init(Opcode opcode, std::any operand);
-};
-
-class PushFInitializer : public IOperationInitializer {
-    public:
-        Operation* init(Opcode opcode, std::any operand);
-};
-
+/*
+==================
+=   ARITHMETIC   =
+==================
+*/
 class AddIInitializer : public IOperationInitializer {
     public:
         Operation* init(Opcode opcode, std::any operand);
@@ -69,12 +64,18 @@ class DivFInitializer : public IOperationInitializer {
         Operation* init(Opcode opcode, std::any operand);
 };
 
-class PStackInitializer : public IOperationInitializer {
+
+/*
+===================
+=      STACK      =
+===================
+*/
+class PushIInitializer : public IOperationInitializer {
     public:
         Operation* init(Opcode opcode, std::any operand);
 };
 
-class PMemInitializer : public IOperationInitializer {
+class PushFInitializer : public IOperationInitializer {
     public:
         Operation* init(Opcode opcode, std::any operand);
 };
@@ -105,6 +106,22 @@ class LoadIInitializer : public IOperationInitializer {
 };
 
 class LoadFInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+
+/*
+==================
+=     HELPER     =
+==================
+*/
+class PStackInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class PMemInitializer : public IOperationInitializer {
     public:
         Operation* init(Opcode opcode, std::any operand);
 };

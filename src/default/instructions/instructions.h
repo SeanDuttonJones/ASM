@@ -3,18 +3,11 @@
 
 #include "operation.h"
 
-class PushIInstruction : public Operation {
-    public:
-        PushIInstruction(Opcode opcode, std::any operand);
-        void execute(IContext *context);
-};
-
-class PushFInstruction : public Operation {
-    public:
-        PushFInstruction(Opcode opcode, std::any operand);
-        void execute(IContext *context);
-};
-
+/*
+==================
+=   ARITHMETIC   =
+==================
+*/
 class AddIInstruction : public Operation {
     public:
         AddIInstruction(Opcode opcode, std::any operand);
@@ -81,18 +74,21 @@ class DivFInstruction : public Operation {
         void execute(IContext *context);
 };
 
-class PStackInstruction : public Operation {
-    private:
-        std::string anyToString(std::any value);
 
+/*
+===================
+=      STACK      =
+===================
+*/
+class PushIInstruction : public Operation {
     public:
-        PStackInstruction(Opcode opcode, std::any operand);
+        PushIInstruction(Opcode opcode, std::any operand);
         void execute(IContext *context);
 };
 
-class PMemInstruction : public Operation {
+class PushFInstruction : public Operation {
     public:
-        PMemInstruction(Opcode opcode, std::any operand);
+        PushFInstruction(Opcode opcode, std::any operand);
         void execute(IContext *context);
 };
 
@@ -129,6 +125,27 @@ class LoadIInstruction : public Operation {
 class LoadFInstruction : public Operation {
     public:
         LoadFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+
+/*
+==================
+=     HELPER     =
+==================
+*/
+class PStackInstruction : public Operation {
+    private:
+        std::string anyToString(std::any value);
+
+    public:
+        PStackInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class PMemInstruction : public Operation {
+    public:
+        PMemInstruction(Opcode opcode, std::any operand);
         void execute(IContext *context);
 };
 
