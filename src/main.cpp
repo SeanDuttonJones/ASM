@@ -29,11 +29,81 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     operationFactory->registerOp(pushFOp, pushFInitializer);
 
     // AddI Instruction
-    Opcode addIOp(OperationType::INSTRUCTION, "AddI", Type::INT);
+    Opcode addIOp(OperationType::INSTRUCTION, "AddI", Type::NONE);
     IOperationInitializer *addIInitializer = new AddIInitializer();
 
     opcodeRegistry->registerOp(addIOp);
     operationFactory->registerOp(addIOp, addIInitializer);
+
+    // SubI Instruction
+    Opcode subIOp(OperationType::INSTRUCTION, "SubI", Type::NONE);
+    IOperationInitializer *subIInitializer = new SubIInitializer();
+
+    opcodeRegistry->registerOp(subIOp);
+    operationFactory->registerOp(subIOp, subIInitializer);
+
+    // NegI Instruction
+    Opcode negIOp(OperationType::INSTRUCTION, "NegI", Type::NONE);
+    IOperationInitializer *negIInitializer = new NegIInitializer();
+
+    opcodeRegistry->registerOp(negIOp);
+    operationFactory->registerOp(negIOp, negIInitializer);
+
+    // MulI Instruction
+    Opcode mulIOp(OperationType::INSTRUCTION, "MulI", Type::NONE);
+    IOperationInitializer *mulIInitializer = new MulIInitializer();
+
+    opcodeRegistry->registerOp(mulIOp);
+    operationFactory->registerOp(mulIOp, mulIInitializer);
+
+    // DivI Instruction
+    Opcode divIOp(OperationType::INSTRUCTION, "DivI", Type::NONE);
+    IOperationInitializer *divIInitializer = new DivIInitializer();
+
+    opcodeRegistry->registerOp(divIOp);
+    operationFactory->registerOp(divIOp, divIInitializer);
+
+    // ModI Instruction
+    Opcode modIOp(OperationType::INSTRUCTION, "ModI", Type::NONE);
+    IOperationInitializer *modIInitializer = new ModIInitializer();
+
+    opcodeRegistry->registerOp(modIOp);
+    operationFactory->registerOp(modIOp, modIInitializer);
+
+    // AddF Instruction
+    Opcode addFOp(OperationType::INSTRUCTION, "AddF", Type::NONE);
+    IOperationInitializer *addFInitializer = new AddFInitializer();
+
+    opcodeRegistry->registerOp(addFOp);
+    operationFactory->registerOp(addFOp, addFInitializer);
+
+    // SubF Instruction
+    Opcode subFOp(OperationType::INSTRUCTION, "SubF", Type::NONE);
+    IOperationInitializer *subFInitializer = new SubFInitializer();
+
+    opcodeRegistry->registerOp(subFOp);
+    operationFactory->registerOp(subFOp, subFInitializer);
+
+    // NegF Instruction
+    Opcode negFOp(OperationType::INSTRUCTION, "NegF", Type::NONE);
+    IOperationInitializer *negFInitializer = new NegFInitializer();
+
+    opcodeRegistry->registerOp(negFOp);
+    operationFactory->registerOp(negFOp, negFInitializer);
+
+    // MulF Instruction
+    Opcode mulFOp(OperationType::INSTRUCTION, "MulF", Type::NONE);
+    IOperationInitializer *mulFInitializer = new MulFInitializer();
+
+    opcodeRegistry->registerOp(mulFOp);
+    operationFactory->registerOp(mulFOp, mulFInitializer);
+
+    // DivF Instruction
+    Opcode divFOp(OperationType::INSTRUCTION, "DivF", Type::NONE);
+    IOperationInitializer *divFInitializer = new DivFInitializer();
+
+    opcodeRegistry->registerOp(divFOp);
+    operationFactory->registerOp(divFOp, divFInitializer);
 
     // PStack Instruction
     Opcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
@@ -50,42 +120,42 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     operationFactory->registerOp(pMemOp, pMemInitializer);
 
     // StoreC Instruction
-    Opcode storeCOp(OperationType::INSTRUCTION, "StoreC", Type::CHAR);
+    Opcode storeCOp(OperationType::INSTRUCTION, "StoreC", Type::NONE);
     IOperationInitializer *storeCInitializer = new StoreCInitializer();
 
     opcodeRegistry->registerOp(storeCOp);
     operationFactory->registerOp(storeCOp, storeCInitializer);
 
     // StoreI Instruction
-    Opcode storeIOp(OperationType::INSTRUCTION, "StoreI", Type::INT);
+    Opcode storeIOp(OperationType::INSTRUCTION, "StoreI", Type::NONE);
     IOperationInitializer *storeIInitializer = new StoreIInitializer();
 
     opcodeRegistry->registerOp(storeIOp);
     operationFactory->registerOp(storeIOp, storeIInitializer);
 
     // StoreF Instruction
-    Opcode storeFOp(OperationType::INSTRUCTION, "StoreF", Type::DOUBLE);
+    Opcode storeFOp(OperationType::INSTRUCTION, "StoreF", Type::NONE);
     IOperationInitializer *storeFInitializer = new StoreFInitializer();
 
     opcodeRegistry->registerOp(storeFOp);
     operationFactory->registerOp(storeFOp, storeFInitializer);
 
     // LoadC Instruction
-    Opcode loadCOp(OperationType::INSTRUCTION, "LoadC", Type::CHAR);
+    Opcode loadCOp(OperationType::INSTRUCTION, "LoadC", Type::NONE);
     IOperationInitializer *loadCInitializer = new LoadCInitializer();
 
     opcodeRegistry->registerOp(loadCOp);
     operationFactory->registerOp(loadCOp, loadCInitializer);
 
     // LoadI Instruction
-    Opcode loadIOp(OperationType::INSTRUCTION, "LoadI", Type::INT);
+    Opcode loadIOp(OperationType::INSTRUCTION, "LoadI", Type::NONE);
     IOperationInitializer *loadIInitializer = new LoadIInitializer();
 
     opcodeRegistry->registerOp(loadIOp);
     operationFactory->registerOp(loadIOp, loadIInitializer);
 
     // LoadF Instruction
-    Opcode loadFOp(OperationType::INSTRUCTION, "LoadF", Type::DOUBLE);
+    Opcode loadFOp(OperationType::INSTRUCTION, "LoadF", Type::NONE);
     IOperationInitializer *loadFInitializer = new LoadFInitializer();
 
     opcodeRegistry->registerOp(loadFOp);
@@ -116,7 +186,7 @@ int main() {
     //     std::printf("The byte #%zu is 0x%02X\n", i, kp[i]);
     // }
 
-    // cout << "K: " << k << endl;
+    // cout << "K: " << k << endl; 
 
     OpcodeRegistry opcodeRegistry;
     OperationFactory operationFactory;

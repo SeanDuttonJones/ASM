@@ -13,6 +13,46 @@ Operation* AddIInitializer::init(Opcode opcode, std::any operand) {
     return new AddIInstruction(opcode, operand);
 }
 
+Operation* SubIInitializer::init(Opcode opcode, std::any operand) {
+    return new SubIInstruction(opcode, operand);
+}
+
+Operation* NegIInitializer::init(Opcode opcode, std::any operand) {
+    return new NegIInstruction(opcode, operand);
+}
+
+Operation* MulIInitializer::init(Opcode opcode, std::any operand) {
+    return new MulIInstruction(opcode, operand);
+}
+
+Operation* DivIInitializer::init(Opcode opcode, std::any operand) {
+    return new DivIInstruction(opcode, operand);
+}
+
+Operation* ModIInitializer::init(Opcode opcode, std::any operand) {
+    return new ModIInstruction(opcode, operand);
+}
+
+Operation* AddFInitializer::init(Opcode opcode, std::any operand) {
+    return new AddFInstruction(opcode, operand);
+}
+
+Operation* SubFInitializer::init(Opcode opcode, std::any operand) {
+    return new SubFInstruction(opcode, operand);
+}
+
+Operation* NegFInitializer::init(Opcode opcode, std::any operand) {
+    return new NegFInstruction(opcode, operand);
+}
+
+Operation* MulFInitializer::init(Opcode opcode, std::any operand) {
+    return new MulFInstruction(opcode, operand);
+}
+
+Operation* DivFInitializer::init(Opcode opcode, std::any operand) {
+    return new DivFInstruction(opcode, operand);
+}
+
 Operation* PStackInitializer::init(Opcode opcode, std::any operand) {
     return new PStackInstruction(opcode, operand);
 }

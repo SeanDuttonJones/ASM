@@ -21,6 +21,66 @@ class AddIInstruction : public Operation {
         void execute(IContext *context);
 };
 
+class SubIInstruction : public Operation {
+    public:
+        SubIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class NegIInstruction : public Operation {
+    public:
+        NegIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class MulIInstruction : public Operation {
+    public:
+        MulIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class DivIInstruction : public Operation {
+    public:
+        DivIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class ModIInstruction : public Operation {
+    public:
+        ModIInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class AddFInstruction : public Operation {
+    public:
+        AddFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class SubFInstruction : public Operation {
+    public:
+        SubFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class NegFInstruction : public Operation {
+    public:
+        NegFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class MulFInstruction : public Operation {
+    public:
+        MulFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class DivFInstruction : public Operation {
+    public:
+        DivFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 class PStackInstruction : public Operation {
     private:
         std::string anyToString(std::any value);

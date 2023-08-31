@@ -1,9 +1,5 @@
-PushI   0
-PushF   0.125
+PushF 27.65
+PushF 5.
 PStack
-StoreF
-PStack
-PMem
-PushI   0
-LoadF
+DivF
 PStack
