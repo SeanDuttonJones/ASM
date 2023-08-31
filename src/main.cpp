@@ -14,19 +14,11 @@
 using namespace std;
 
 void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operationFactory) {
-    // PushI Instruction
-    Opcode pushIOp(OperationType::INSTRUCTION, "PushI", Type::INT);
-    IOperationInitializer *pushIInitializer = new PushIInitializer();
-
-    opcodeRegistry->registerOp(pushIOp);
-    operationFactory->registerOp(pushIOp, pushIInitializer);
-
-    // PushF Instruction
-    Opcode pushFOp(OperationType::INSTRUCTION, "PushF", Type::DOUBLE);
-    IOperationInitializer *pushFInitializer = new PushFInitializer();
-
-    opcodeRegistry->registerOp(pushFOp);
-    operationFactory->registerOp(pushFOp, pushFInitializer);
+    /*
+        ==================
+        =   ARITHMETIC   =
+        ==================
+    */
 
     // AddI Instruction
     Opcode addIOp(OperationType::INSTRUCTION, "AddI", Type::NONE);
@@ -105,19 +97,46 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     opcodeRegistry->registerOp(divFOp);
     operationFactory->registerOp(divFOp, divFInitializer);
 
-    // PStack Instruction
-    Opcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
-    IOperationInitializer *pStackInitializer = new PStackInitializer();
+    /*
+        ===================
+        =      STACK      =
+        ===================
+    */
 
-    opcodeRegistry->registerOp(pStackOp);
-    operationFactory->registerOp(pStackOp, pStackInitializer);
+    // Duplicate Instruction
+    Opcode dupOp(OperationType::INSTRUCTION, "Dup", Type::NONE);
+    IOperationInitializer *dupInitializer = new DupInitializer();
 
-    // PMem Instruction
-    Opcode pMemOp(OperationType::INSTRUCTION, "PMem", Type::NONE);
-    IOperationInitializer *pMemInitializer = new PMemInitializer();
+    opcodeRegistry->registerOp(dupOp);
+    operationFactory->registerOp(dupOp, dupInitializer);
 
-    opcodeRegistry->registerOp(pMemOp);
-    operationFactory->registerOp(pMemOp, pMemInitializer);
+    // Exchange Instruction
+    Opcode exchOp(OperationType::INSTRUCTION, "Exch", Type::NONE);
+    IOperationInitializer *exchInitializer = new ExchInitializer();
+
+    opcodeRegistry->registerOp(exchOp);
+    operationFactory->registerOp(exchOp, exchInitializer);
+
+    // Pop Instruction
+    Opcode popOp(OperationType::INSTRUCTION, "Pop", Type::NONE);
+    IOperationInitializer *popInitializer = new PopInitializer();
+
+    opcodeRegistry->registerOp(popOp);
+    operationFactory->registerOp(popOp, popInitializer);
+
+    // PushI Instruction
+    Opcode pushIOp(OperationType::INSTRUCTION, "PushI", Type::INT);
+    IOperationInitializer *pushIInitializer = new PushIInitializer();
+
+    opcodeRegistry->registerOp(pushIOp);
+    operationFactory->registerOp(pushIOp, pushIInitializer);
+
+    // PushF Instruction
+    Opcode pushFOp(OperationType::INSTRUCTION, "PushF", Type::DOUBLE);
+    IOperationInitializer *pushFInitializer = new PushFInitializer();
+
+    opcodeRegistry->registerOp(pushFOp);
+    operationFactory->registerOp(pushFOp, pushFInitializer);
 
     // StoreC Instruction
     Opcode storeCOp(OperationType::INSTRUCTION, "StoreC", Type::NONE);
@@ -160,6 +179,26 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
 
     opcodeRegistry->registerOp(loadFOp);
     operationFactory->registerOp(loadFOp, loadFInitializer);
+
+    /*
+        ==================
+        =     HELPER     =
+        ==================
+    */
+
+    // PStack Instruction
+    Opcode pStackOp(OperationType::INSTRUCTION, "PStack", Type::NONE);
+    IOperationInitializer *pStackInitializer = new PStackInitializer();
+
+    opcodeRegistry->registerOp(pStackOp);
+    operationFactory->registerOp(pStackOp, pStackInitializer);
+
+    // PMem Instruction
+    Opcode pMemOp(OperationType::INSTRUCTION, "PMem", Type::NONE);
+    IOperationInitializer *pMemInitializer = new PMemInitializer();
+
+    opcodeRegistry->registerOp(pMemOp);
+    operationFactory->registerOp(pMemOp, pMemInitializer);
 }
 
 int main() {

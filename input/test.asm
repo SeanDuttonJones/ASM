@@ -1,5 +1,5 @@
-PushF 27.65
-PushF 5.
+PushF   6.75
+PushI   5
 PStack
-DivF
+Exch
 PStack

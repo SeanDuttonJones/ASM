@@ -2,9 +2,9 @@
 #include "instructions.h"
 
 /*
-==================
-=   ARITHMETIC   =
-==================
+    ==================
+    =   ARITHMETIC   =
+    ==================
 */
 Operation* AddIInitializer::init(Opcode opcode, std::any operand) {
     return new AddIInstruction(opcode, operand);
@@ -52,10 +52,22 @@ Operation* DivFInitializer::init(Opcode opcode, std::any operand) {
 
 
 /*
-===================
-=      STACK      =
-===================
+    ===================
+    =      STACK      =
+    ===================
 */
+Operation* DupInitializer::init(Opcode opcode, std::any operand) {
+    return new DupInstruction(opcode, operand);
+}
+
+Operation* ExchInitializer::init(Opcode opcode, std::any operand) {
+    return new ExchInstruction(opcode, operand);
+}
+
+Operation* PopInitializer::init(Opcode opcode, std::any operand) {
+    return new PopInstruction(opcode, operand);
+}
+
 Operation* PushIInitializer::init(Opcode opcode, std::any operand) {
     return new PushIInstruction(opcode, operand);
 }
@@ -90,9 +102,9 @@ Operation* LoadFInitializer::init(Opcode opcode, std::any operand) {
 
 
 /*
-==================
-=     HELPER     =
-==================
+    ==================
+    =     HELPER     =
+    ==================
 */
 Operation* PStackInitializer::init(Opcode opcode, std::any operand) {
     return new PStackInstruction(opcode, operand);

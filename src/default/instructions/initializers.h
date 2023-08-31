@@ -5,9 +5,9 @@
 #include "opcode.h"
 
 /*
-==================
-=   ARITHMETIC   =
-==================
+    ==================
+    =   ARITHMETIC   =
+    ==================
 */
 class AddIInitializer : public IOperationInitializer {
     public:
@@ -66,10 +66,25 @@ class DivFInitializer : public IOperationInitializer {
 
 
 /*
-===================
-=      STACK      =
-===================
+    ===================
+    =      STACK      =
+    ===================
 */
+class DupInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class ExchInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class PopInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
 class PushIInitializer : public IOperationInitializer {
     public:
         Operation* init(Opcode opcode, std::any operand);
@@ -112,9 +127,9 @@ class LoadFInitializer : public IOperationInitializer {
 
 
 /*
-==================
-=     HELPER     =
-==================
+    ==================
+    =     HELPER     =
+    ==================
 */
 class PStackInitializer : public IOperationInitializer {
     public:

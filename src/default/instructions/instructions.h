@@ -4,9 +4,9 @@
 #include "operation.h"
 
 /*
-==================
-=   ARITHMETIC   =
-==================
+    ==================
+    =   ARITHMETIC   =
+    ==================
 */
 class AddIInstruction : public Operation {
     public:
@@ -76,10 +76,28 @@ class DivFInstruction : public Operation {
 
 
 /*
-===================
-=      STACK      =
-===================
+    ===================
+    =      STACK      =
+    ===================
 */
+class DupInstruction : public Operation {
+    public:
+        DupInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class ExchInstruction : public Operation {
+    public:
+        ExchInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class PopInstruction : public Operation {
+    public:
+        PopInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 class PushIInstruction : public Operation {
     public:
         PushIInstruction(Opcode opcode, std::any operand);
@@ -130,9 +148,9 @@ class LoadFInstruction : public Operation {
 
 
 /*
-==================
-=     HELPER     =
-==================
+    ==================
+    =     HELPER     =
+    ==================
 */
 class PStackInstruction : public Operation {
     private:
