@@ -104,9 +104,27 @@ class PushIInstruction : public Operation {
         void execute(IContext *context);
 };
 
+class PushDInstruction : public Operation {
+    public:
+        PushDInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 class PushFInstruction : public Operation {
     public:
         PushFInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class PushPCInstruction : public Operation {
+    public:
+        PushPCInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class PopPCInstruction : public Operation {
+    public:
+        PopPCInstruction(Opcode opcode, std::any operand);
         void execute(IContext *context);
 };
 
@@ -146,6 +164,11 @@ class LoadFInstruction : public Operation {
         void execute(IContext *context);
 };
 
+class MtopInstruction : public Operation {
+    public:
+        MtopInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
 
 /*
     ==================

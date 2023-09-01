@@ -1,5 +1,5 @@
-PushF   6.75
-PushI   5
+PushD   10
 PStack
-Exch
-PStack
+PopPC
+PushPC
+PStack 

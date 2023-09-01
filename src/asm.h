@@ -29,6 +29,7 @@ class Asm {
 
         DefaultStackAccess stackAccessor;
         DefaultMemoryAccess memoryAccessor;
+        DefaultPCAccess pcAccessor;
         DefaultContext context;
 
     public:

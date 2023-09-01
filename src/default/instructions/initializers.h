@@ -90,7 +90,22 @@ class PushIInitializer : public IOperationInitializer {
         Operation* init(Opcode opcode, std::any operand);
 };
 
+class PushDInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
 class PushFInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class PushPCInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class PopPCInitializer : public IOperationInitializer {
     public:
         Operation* init(Opcode opcode, std::any operand);
 };
@@ -125,6 +140,10 @@ class LoadFInitializer : public IOperationInitializer {
         Operation* init(Opcode opcode, std::any operand);
 };
 
+class MtopInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
 
 /*
     ==================

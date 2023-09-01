@@ -131,12 +131,33 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     opcodeRegistry->registerOp(pushIOp);
     operationFactory->registerOp(pushIOp, pushIInitializer);
 
+    // PushD Instruction
+    Opcode pushDOp(OperationType::INSTRUCTION, "PushD", Type::STRING);
+    IOperationInitializer *pushDInitializer = new PushDInitializer();
+
+    opcodeRegistry->registerOp(pushDOp);
+    operationFactory->registerOp(pushDOp, pushDInitializer);
+
     // PushF Instruction
     Opcode pushFOp(OperationType::INSTRUCTION, "PushF", Type::DOUBLE);
     IOperationInitializer *pushFInitializer = new PushFInitializer();
 
     opcodeRegistry->registerOp(pushFOp);
     operationFactory->registerOp(pushFOp, pushFInitializer);
+
+    // PushPC Instruction
+    Opcode pushPCOp(OperationType::INSTRUCTION, "PushPC", Type::NONE);
+    IOperationInitializer *pushPCInitializer = new PushPCInitializer();
+
+    opcodeRegistry->registerOp(pushPCOp);
+    operationFactory->registerOp(pushPCOp, pushPCInitializer);
+
+    // PopPC Instruction
+    Opcode popPCOp(OperationType::INSTRUCTION, "PopPC", Type::NONE);
+    IOperationInitializer *popPCInitializer = new PopPCInitializer();
+
+    opcodeRegistry->registerOp(popPCOp);
+    operationFactory->registerOp(popPCOp, popPCInitializer);
 
     // StoreC Instruction
     Opcode storeCOp(OperationType::INSTRUCTION, "StoreC", Type::NONE);
@@ -179,6 +200,13 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
 
     opcodeRegistry->registerOp(loadFOp);
     operationFactory->registerOp(loadFOp, loadFInitializer);
+
+    // Mtop Instruction
+    Opcode mtopOp(OperationType::INSTRUCTION, "Mtop", Type::NONE);
+    IOperationInitializer *mtopInitializer = new MtopInitializer();
+
+    opcodeRegistry->registerOp(mtopOp);
+    operationFactory->registerOp(mtopOp, mtopInitializer);
 
     /*
         ==================

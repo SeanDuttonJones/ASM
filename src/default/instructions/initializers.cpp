@@ -72,8 +72,20 @@ Operation* PushIInitializer::init(Opcode opcode, std::any operand) {
     return new PushIInstruction(opcode, operand);
 }
 
+Operation* PushDInitializer::init(Opcode opcode, std::any operand) {
+    return new PushDInstruction(opcode, operand);
+}
+
 Operation* PushFInitializer::init(Opcode opcode, std::any operand) {
     return new PushFInstruction(opcode, operand);
+}
+
+Operation* PushPCInitializer::init(Opcode opcode, std::any operand) {
+    return new PushPCInstruction(opcode, operand);
+}
+
+Operation* PopPCInitializer::init(Opcode opcode, std::any operand) {
+    return new PopPCInstruction(opcode, operand);
 }
 
 Operation* StoreCInitializer::init(Opcode opcode, std::any operand) {
@@ -98,6 +110,10 @@ Operation* LoadIInitializer::init(Opcode opcode, std::any operand) {
 
 Operation* LoadFInitializer::init(Opcode opcode, std::any operand) {
     return new LoadFInstruction(opcode, operand);
+}
+
+Operation* MtopInitializer::init(Opcode opcode, std::any operand) {
+    return new MtopInstruction(opcode, operand);
 }
 
 

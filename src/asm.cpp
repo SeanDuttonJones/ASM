@@ -1,7 +1,8 @@
 #include "asm.h"
 
 Asm::Asm(uint32_t memorySize) 
-    : stackAccessor(&stack), memoryAccessor(&memory), context(&stackAccessor, &memoryAccessor)
+    : stackAccessor(&stack), memoryAccessor(&memory), pcAccessor(&pc), 
+        context(&stackAccessor, &memoryAccessor, &pcAccessor)
 {
     this->pc = 0;
     
@@ -31,8 +32,8 @@ void Asm::start(bool debug) {
     }
 
     for(uint64_t i = 0; i < operations.size(); i++) {
-        operations[i]->execute(&context);
         pc++;
+        operations[i]->execute(&context);
     }
 }
 
