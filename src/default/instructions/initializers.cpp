@@ -118,6 +118,24 @@ Operation* MtopInitializer::init(Opcode opcode, std::any operand) {
 
 
 /*
+    ==========================
+    =      CONTROL FLOW      =
+    ==========================
+*/
+
+Operation* LabelInitializer::init(Opcode opcode, std::any operand) {
+    return new LabelInstruction(opcode, operand);
+}
+
+Operation* JumpInitializer::init(Opcode opcode, std::any operand) {
+    return new JumpInstruction(opcode, operand);
+}
+
+Operation* JumpPInitializer::init(Opcode opcode, std::any operand) {
+    return new JumpPInstruction(opcode, operand);
+}
+
+/*
     ==================
     =     HELPER     =
     ==================

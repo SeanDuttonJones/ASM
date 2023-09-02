@@ -8,6 +8,7 @@ enum class Type {
     BOOL,
     CHAR,
     INT,
+    UNSIGNED_INT,
     FLOAT,
     DOUBLE,
     STRING,

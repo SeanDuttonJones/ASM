@@ -145,6 +145,28 @@ class MtopInitializer : public IOperationInitializer {
         Operation* init(Opcode opcode, std::any operand);
 };
 
+
+/*
+    ==========================
+    =      CONTROL FLOW      =
+    ==========================
+*/
+
+class LabelInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class JumpInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
+class JumpPInitializer : public IOperationInitializer {
+    public:
+        Operation* init(Opcode opcode, std::any operand);
+};
+
 /*
     ==================
     =     HELPER     =

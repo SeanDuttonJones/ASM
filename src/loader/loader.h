@@ -15,10 +15,10 @@ using namespace std;
 class Loader {
     private:
         Asm *stackMachine;
-        map<string, uint32_t> symbolTable;
-        map<string, uint32_t> dataLabelTable;
-        uint32_t iptr;
-        uint32_t dptr;
+        map<string, unsigned int> symbolTable;
+        map<string, unsigned int> dataLabelTable;
+        unsigned int iptr;
+        unsigned int dptr;
         
         OpcodeRegistry *opcodeRegistry;
         OperationFactory *operationFactory;

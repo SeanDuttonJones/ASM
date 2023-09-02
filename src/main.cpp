@@ -208,6 +208,34 @@ void createInstructions(OpcodeRegistry *opcodeRegistry, OperationFactory *operat
     opcodeRegistry->registerOp(mtopOp);
     operationFactory->registerOp(mtopOp, mtopInitializer);
 
+
+    /*
+        ==========================
+        =      CONTROL FLOW      =
+        ==========================
+    */
+
+    // Label Instruction
+    Opcode labelOp(OperationType::LABEL, "Label", Type::STRING);
+    IOperationInitializer *labelInitializer = new LabelInitializer();
+
+    opcodeRegistry->registerOp(labelOp);
+    operationFactory->registerOp(labelOp, labelInitializer);
+
+    // Jump Instruction
+    Opcode jumpOp(OperationType::INSTRUCTION, "Jump", Type::STRING);
+    IOperationInitializer *jumpInitializer = new JumpInitializer();
+
+    opcodeRegistry->registerOp(jumpOp);
+    operationFactory->registerOp(jumpOp, jumpInitializer);
+
+    // Jump Instruction
+    Opcode jumpPOp(OperationType::INSTRUCTION, "JumpP", Type::STRING);
+    IOperationInitializer *jumpPInitializer = new JumpPInitializer();
+
+    opcodeRegistry->registerOp(jumpPOp);
+    operationFactory->registerOp(jumpPOp, jumpPInitializer);
+
     /*
         ==================
         =     HELPER     =
@@ -265,5 +293,5 @@ int main() {
     Loader loader(&stackMachine, &opcodeRegistry, &operationFactory);
     loader.load("./input/test.asm");
     
-    stackMachine.start();
+    stackMachine.start(true);
 };

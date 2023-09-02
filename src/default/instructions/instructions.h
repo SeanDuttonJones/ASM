@@ -170,6 +170,31 @@ class MtopInstruction : public Operation {
         void execute(IContext *context);
 };
 
+
+/*
+    ==========================
+    =      CONTROL FLOW      =
+    ==========================
+*/
+
+class LabelInstruction : public Operation {
+    public:
+        LabelInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class JumpInstruction : public Operation {
+    public:
+        JumpInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
+class JumpPInstruction : public Operation {
+    public:
+        JumpPInstruction(Opcode opcode, std::any operand);
+        void execute(IContext *context);
+};
+
 /*
     ==================
     =     HELPER     =

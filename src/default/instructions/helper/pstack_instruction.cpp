@@ -9,7 +9,6 @@ PStackInstruction::PStackInstruction(Opcode opcode, std::any operand)
 {}
 
 void PStackInstruction::execute(IContext *context) {
-    // std::cout << "PStack: executing" << std::endl;
     IStackAccess *stackAccessor = context->getStackAccess();
     
     uint64_t stackSize = stackAccessor->size();
@@ -33,29 +32,32 @@ void PStackInstruction::execute(IContext *context) {
 
 std::string PStackInstruction::anyToString(std::any value) {
     std::string valueStr = "";
-    
+
     switch (TypeTools::getType(std::type_index(value.type()))) {
-    case Type::BOOL:
-        valueStr = std::to_string(std::any_cast<bool>(value));
-        break;
-    case Type::CHAR:
-        valueStr = std::to_string(std::any_cast<char>(value));
-        break;
-    case Type::INT:
-        valueStr = std::to_string(std::any_cast<int>(value));
-        break;
-    case Type::FLOAT:
-        valueStr = std::to_string(std::any_cast<float>(value));
-        break;
-    case Type::DOUBLE:
-        valueStr = std::to_string(std::any_cast<double>(value));
-        break;
-    case Type::STRING:
-        valueStr = std::any_cast<std::string>(value);
-        break;
-    default:
-        valueStr = "None";
-        break;
+        case Type::BOOL:
+            valueStr = std::to_string(std::any_cast<bool>(value));
+            break;
+        case Type::CHAR:
+            valueStr = std::to_string(std::any_cast<char>(value));
+            break;
+        case Type::INT:
+            valueStr = std::to_string(std::any_cast<int>(value));
+            break;
+        case Type::UNSIGNED_INT:
+            valueStr = std::to_string(std::any_cast<unsigned int>(value));
+            break;
+        case Type::FLOAT:
+            valueStr = std::to_string(std::any_cast<float>(value));
+            break;
+        case Type::DOUBLE:
+            valueStr = std::to_string(std::any_cast<double>(value));
+            break;
+        case Type::STRING:
+            valueStr = std::any_cast<std::string>(value);
+            break;
+        default:
+            valueStr = "None";
+            break;
     }
 
     return valueStr;

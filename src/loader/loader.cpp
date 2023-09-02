@@ -52,10 +52,10 @@ void Loader::load(std::filesystem::path input) {
         } else if(operationType == OperationType::DIRECTIVE) {
             loadDirective(pOperation);
         }
-
-        resolveSymbols();
         // cout << pOperation->toString() << endl;
     }
+
+    resolveSymbols();
 }
 
 void Loader::loadInstruction(Operation *pOperation) {
@@ -107,13 +107,17 @@ void Loader::loadDirective(Operation *pOperation) {
 
 void Loader::resolveSymbols() {
     // resolve in instruction store first
-    for(Operation *pOperation : stackMachine->getOperations()) {
-        Opcode opcode = pOperation->getOpcode();
+    vector<Operation*> operations = stackMachine->getOperations();
+    for(uint64_t i = 0; i < operations.size(); i++) {
+        Opcode opcode = operations[i]->getOpcode();
         OperationType operationType = opcode.getOperationType();
-        if(operationType == OperationType::LABEL || operationType == OperationType::DLABEL) {
-            string oldValue = any_cast<string>(pOperation->getOperand());
-            delete pOperation;
-            pOperation = operationFactory->make(opcode, symbolTable.at(oldValue));
+
+        if(operationType == OperationType::LABEL || operationType == OperationType::DLABEL 
+            || opcode.getOperandType() == Type::STRING) {
+
+            string oldValue = any_cast<string>(operations[i]->getOperand());
+            delete operations[i];
+            operations[i] = operationFactory->make(opcode, symbolTable.at(oldValue));
         }
     }
 

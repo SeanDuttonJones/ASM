@@ -1,5 +1,8 @@
-PushD   10
+PushI   10
+JumpP   "loop-start"
+PushI   20
+PushI   5
+AddI
 PStack
-PopPC
-PushPC
-PStack 
+Label "loop-start"
+PStack

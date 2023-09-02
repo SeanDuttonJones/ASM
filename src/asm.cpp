@@ -31,9 +31,14 @@ void Asm::start(bool debug) {
         printf("OUTPUT\n");
     }
 
-    for(uint64_t i = 0; i < operations.size(); i++) {
+    // for(uint64_t i = 0; i < operations.size(); i++) {
+    //     pc++;
+    //     operations[i]->execute(&context);
+    // }
+
+    while(pc < operations.size()) {
         pc++;
-        operations[i]->execute(&context);
+        operations[pc - 1]->execute(&context);
     }
 }
 
